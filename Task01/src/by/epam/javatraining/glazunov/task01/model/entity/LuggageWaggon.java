@@ -7,7 +7,7 @@ public class LuggageWaggon extends Waggon {
 		super();
 	}
 
-	public LuggageWaggon(double lehghtWaggon,int luggage) {
+	public LuggageWaggon(double lehghtWaggon, double luggage) {
 		super(lehghtWaggon);
 		this.luggage = luggage;
 	}
@@ -17,7 +17,8 @@ public class LuggageWaggon extends Waggon {
 	}
 
 	public void setLuggage(int luggage) {
-		if(luggage < 0) this.luggage = 0.0;
+		if (luggage < 0)
+			this.luggage = 0.0;
 		this.luggage = luggage;
 	}
 
@@ -50,8 +51,4 @@ public class LuggageWaggon extends Waggon {
 		return "LuggageWaggon [luggage=" + luggage + "]";
 	}
 
-	
-	
-	
-	
 }

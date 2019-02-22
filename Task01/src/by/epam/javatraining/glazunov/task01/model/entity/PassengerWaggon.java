@@ -1,7 +1,7 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
 public class PassengerWaggon extends Waggon {
-	
+
 	private TypePassengerWaggon typeWaggon;
 
 	public PassengerWaggon() {
@@ -45,12 +45,7 @@ public class PassengerWaggon extends Waggon {
 
 	@Override
 	public String toString() {
-		return "PassengerWagon [typeWaggon=" + typeWaggon + " numberSeats=" + typeWaggon.getNumberSeats() + "]";
+		return "PassengerWaggon [typeWaggon=" + typeWaggon + "]";
 	}
 
-	
-	
-	
-	
-	
 }

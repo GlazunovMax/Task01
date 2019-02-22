@@ -1,43 +1,36 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-import by.epam.javatraining.glazunov.task01.utill.LogicException;
-
 public class Locomotive {
 	private String mark;
 	private TypeLocomotive typeLocomotive;
-	
-	
-	public Locomotive() {}
 
+	public Locomotive() {
+		this.typeLocomotive = TypeLocomotive.ELECTRIC_LOCOMOTIVE;
+	}
 
 	public Locomotive(String mark, TypeLocomotive typeLocomotive) {
 		this.mark = mark;
 		this.typeLocomotive = typeLocomotive;
 	}
 
-
 	public String getMark() {
 		return mark;
 	}
 
-
 	public void setMark(String mark) {
-		if(mark.isEmpty()) {
+		if (mark.isEmpty()) {
 			this.mark = "Not assigned";
 		}
 		this.mark = mark;
 	}
 
-
 	public TypeLocomotive getTypeLocomotive() {
 		return typeLocomotive;
 	}
 
-
 	public void setTypeLocomotive(TypeLocomotive typeLocomotive) {
 		this.typeLocomotive = typeLocomotive;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -47,7 +40,6 @@ public class Locomotive {
 		result = prime * result + ((typeLocomotive == null) ? 0 : typeLocomotive.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -68,13 +60,9 @@ public class Locomotive {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Locomotive [mark=" + mark + ", typeLocomotive=" + typeLocomotive + "]";
 	}
-	
-	
-	
-	
+
 }

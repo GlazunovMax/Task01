@@ -1,27 +1,24 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-public class Waggon {
+public abstract class Waggon {
 	private double lehghtWaggon;
-	
-	
-	public Waggon() {}
 
+	public Waggon() {
+	}
 
 	public Waggon(double lehghtWaggon) {
 		this.lehghtWaggon = lehghtWaggon;
 	}
 
-
 	public double getLehghtWaggon() {
 		return lehghtWaggon;
 	}
 
-
 	public void setLehghtWaggon(double lehghtWaggon) {
-		if(lehghtWaggon < 0) this.lehghtWaggon = 0.0;
+		if (lehghtWaggon < 0)
+			this.lehghtWaggon = 0.0;
 		this.lehghtWaggon = lehghtWaggon;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -32,7 +29,6 @@ public class Waggon {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,11 +44,9 @@ public class Waggon {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Waggon [lehghtWaggon=" + lehghtWaggon + "]";
 	}
 
-	
 }
