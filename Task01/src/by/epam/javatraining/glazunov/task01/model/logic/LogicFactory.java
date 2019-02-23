@@ -1,20 +1,20 @@
-package by.epam.javatraining.glazunov.task01.utill;
-
-import by.epam.javatraining.glazunov.task01.model.logic.TrainLogic;
-import by.epam.javatraining.glazunov.task01.model.logic.TrainLogicImpl;
+package by.epam.javatraining.glazunov.task01.model.logic;
 
 public class LogicFactory {
-	private static final LogicFactory instance = new LogicFactory();
-	
+	private static LogicFactory instance;
+
 	private final TrainLogic trainLogicImpl = new TrainLogicImpl();
 
 	private LogicFactory() {
 	}
-	
+
 	public static LogicFactory getInstance() {
+		if (instance == null) {
+			instance = new LogicFactory();
+		}
 		return instance;
 	}
-	
+
 	public TrainLogic getTrainLogicImpl() {
 		return trainLogicImpl;
 	}

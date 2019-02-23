@@ -1,133 +1,155 @@
 package by.epam.javatraining.glazunov.task01.model.logic;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
-import by.epam.javatraining.glazunov.task01.model.entity.LuggageWaggon;
-import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
-import by.epam.javatraining.glazunov.task01.utill.LogicException;
+import by.epam.javatraining.glazunov.task01.utill.LuggageWeightComparator;
+import by.epam.javatraining.glazunov.task01.utill.PassengerNumberComparator;
+import by.epam.javatraining.glazunov.task01.utill.TypeSearch;
 
 public class TrainLogicImpl implements TrainLogic {
+	private static final String MESSAGE_OCCUPIED_PLACES = "Train name: %s. Total places - %d. Occupied places - %d.";
+	private static final String MESSAGE_NO_BAGGAGE_WAGGON = "Train name %s has no baggage waggon!";
+	private static final String MESSAGE_OCCUPIED_BAGGAGES = "Train name %s. Free baggage space - %.3f. Occupied baggage space - %.3f.";
+	private static final String MESSAGE_EXCRPTION = "An empty list was passed to the method arguments!";
 
 	@Override
-	public BigDecimal getLenghtTrain(Train train) throws LogicException{
-		
-		Locomotive locomotive = train.getLocomotive();
-		List<Waggon> waggons = train.getWaggons();
-		
+	public Map<String, BigDecimal> getLenghtTrain(List<Train> trains) throws LogicException {
+		isListEmpty(trains);
+
+		Locomotive locomotive;
+		List<Waggon> waggons;
 		double lenWag = 0;
 		BigDecimal lehght;
 		BigDecimal lenghtAllWaggons;
-		BigDecimal lehghtLocomotive = new BigDecimal(locomotive.getTypeLocomotive().getLenght());
-		
-		
-		for (Waggon waggon : waggons) {
-			lenWag += waggon.getLehghtWaggon();
-		}
-		
-		lenghtAllWaggons = new BigDecimal(lenWag);
-		
-		lehght = lehghtLocomotive.add(lenghtAllWaggons);
-		
-		return lehght.setScale(3, BigDecimal.ROUND_HALF_DOWN);
-	}
-	
+		BigDecimal lehghtLocomotive;
+		Map<String, BigDecimal> lenghtTrains = new TreeMap<>();
 
-	@Override
-	public int getNumberOfPassenger(Train train) {
-		
-		List<Waggon> waggons = train.getWaggons();
-		int countPassenger = 0;
-		
-		for (Waggon waggon : waggons) {
-			if(waggon instanceof PassengerWaggon) {
-				countPassenger += ((PassengerWaggon) waggon).getTypeWaggon().getNumberSeats();
+		for (Train train : trains) {
+			locomotive = train.getLocomotive();
+			waggons = train.getWaggons();
+
+			lehghtLocomotive = new BigDecimal(locomotive.getTypeLocomotive().getLenght());
+
+			for (Waggon waggon : waggons) {
+				lenWag += waggon.getLehghtWaggon();
 			}
+
+			lenghtAllWaggons = new BigDecimal(lenWag);
+
+			lehght = lehghtLocomotive.add(lenghtAllWaggons);
+
+			lenghtTrains.put(train.getNameTrain(), lehght.setScale(3, BigDecimal.ROUND_HALF_DOWN));
+
 		}
-		return countPassenger;
+		return lenghtTrains;
+
 	}
-	
 
 	@Override
-	public BigDecimal getWeightLuggage(Train train) {
-	
-		List<Waggon> waggons = train.getWaggons();
-		BigDecimal weightLuggage = new BigDecimal(0);
-		BigDecimal weightLug;
-		
-		for (Waggon waggon : waggons) {
-			if(waggon instanceof LuggageWaggon) {
-				weightLug = new BigDecimal(((LuggageWaggon) waggon).getLuggage());
-				
-				weightLuggage = weightLuggage.add(weightLug);
+	public List<String> getNumberOfPassenger(List<Train> trains) throws LogicException {
+		isListEmpty(trains);
+
+		List<String> listPlaces = new ArrayList<>();
+		int totalPlaces = 0;
+		int occupiedPlaces = 0;
+		String answerTotalPlaces;
+
+		for (Train train : trains) {
+			totalPlaces = train.getTotalNumberPassengerSeats();
+			occupiedPlaces = train.getOccupiedPlaces();
+
+			answerTotalPlaces = String.format(MESSAGE_OCCUPIED_PLACES, train.getNameTrain(), totalPlaces,
+					occupiedPlaces);
+
+			listPlaces.add(answerTotalPlaces);
+
+		}
+
+		return listPlaces;
+	}
+
+	@Override
+	public List<String> getWeightLuggage(List<Train> trains) throws LogicException {
+		isListEmpty(trains);
+
+		List<String> listLuggage = new ArrayList<>();
+		BigDecimal totalLuggage;
+		BigDecimal occupiedLuggage;
+		String aboutLuggage;
+
+		for (Train train : trains) {
+			totalLuggage = train.getTotalWeightLuggage();
+			occupiedLuggage = train.getOccupiedLuggage();
+
+			if (totalLuggage.compareTo(BigDecimal.ZERO) == 0) {
+				aboutLuggage = String.format(MESSAGE_NO_BAGGAGE_WAGGON, train.getNameTrain());
+			} else {
+				aboutLuggage = String.format(MESSAGE_OCCUPIED_BAGGAGES, train.getNameTrain(), totalLuggage,
+						occupiedLuggage);
 			}
+
+			listLuggage.add(aboutLuggage);
 		}
 
-		return weightLuggage.setScale(3, BigDecimal.ROUND_HALF_DOWN);
+		return listLuggage;
 	}
-	
-	
-	
 
 	@Override
-	public String findMaxPassengerOnTrain(Train train1, Train train2) throws LogicException {
-		TrainLogicImpl logicImpl = new TrainLogicImpl();
-		
-		int train1Pass;
-		int train2Pass;
-		String answer = "";
-		
-		 train1Pass = logicImpl.getNumberOfPassenger(train1);
-		 train2Pass = logicImpl.getNumberOfPassenger(train2);
-		
-		if(train1Pass > train2Pass) {
-			answer = "Train " + train1.getNameTrain() + " has max passenger seats";
-		}else if(train1Pass < train2Pass) {
-			answer = "Train " + train2.getNameTrain() + " has max passenger seats ";
-		}else {
-			answer = "Trains " + train1.getNameTrain() + train2.getNameTrain() + " have the same number of passenger seats ";
+	public Train findMinOrMaxPassengerOnTrain(List<Train> trains, TypeSearch typeSearch) throws LogicException {
+		isListEmpty(trains);
+
+		Train trainMaxPassenger;
+		int index = 0;
+		Collections.sort(trains, new PassengerNumberComparator());
+
+		switch (typeSearch) {
+		case MAX:
+			index = 0;
+			break;
+		case MIN:
+			index = trains.size() - 1;
+			break;
 		}
 
-		return answer;
-	}
+		trainMaxPassenger = trains.get(index);
 
-	
-	@Override
-	public String findMinPassengerOnTrain(Train... trains) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	@Override
-	public String findMaxWeightLuggage(String maxOrMin, Train... trains) {
-		// TODO Auto-generated method stub
-		return null;
+		return trainMaxPassenger;
 	}
 
 	@Override
-	public String findMinWeightLuggage(Train train1, Train train2) {
-		TrainLogicImpl logicImpl = new TrainLogicImpl();
-		
-		BigDecimal train1Luggage = logicImpl.getWeightLuggage(train1);
-		BigDecimal train2Luggage = logicImpl.getWeightLuggage(train2);
-		String answer = "";
-		
-		
-		if(train1Luggage.compareTo(train2Luggage) == -1) {
-			answer = "Train " + train1.getNameTrain() + " has min luggage";
-		}else if(train1Luggage.compareTo(train2Luggage) == 1) {
-			answer = "Train " + train2.getNameTrain() + " has min luggage";
-		}else {
-			answer = "Trains " + train1.getNameTrain() + train2.getNameTrain() + " have the same luggage";
+	public Train findMaxPassengerOnTrain(List<Train> trains) throws LogicException {
+		isListEmpty(trains);
+
+		Collections.sort(trains, new PassengerNumberComparator());
+
+		Train trainMaxPassenger = trains.get(0);
+
+		return trainMaxPassenger;
+	}
+
+	@Override
+	public Train findMaxWeightLuggageOnTrain(List<Train> trains) throws LogicException {
+		isListEmpty(trains);
+
+		Collections.sort(trains, new LuggageWeightComparator());
+
+		Train trainMaxLuggage = trains.get(0);
+
+		return trainMaxLuggage;
+	}
+
+	public static void isListEmpty(List<Train> trains) throws LogicException {
+		if (trains.isEmpty()) {
+			throw new LogicException(MESSAGE_EXCRPTION);
 		}
-
-		return answer;
-
 	}
 
 }

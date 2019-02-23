@@ -1,4 +1,4 @@
-package by.epam.javatraining.glazunov.task01.utill;
+package by.epam.javatraining.glazunov.task01.model.logic;
 
 public class LogicException extends Exception {
 	
