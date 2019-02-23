@@ -15,8 +15,10 @@ public abstract class Waggon {
 	}
 
 	public void setLehghtWaggon(double lehghtWaggon) {
-		if (lehghtWaggon < 0)
+		if (lehghtWaggon < 0) {
 			this.lehghtWaggon = 0.0;
+		}
+
 		this.lehghtWaggon = lehghtWaggon;
 	}
 

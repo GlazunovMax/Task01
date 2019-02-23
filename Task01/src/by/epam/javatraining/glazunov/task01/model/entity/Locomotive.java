@@ -1,6 +1,8 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
 public class Locomotive {
+	private static final String MESSAGE_NAME_MARK_EMPTY = "Not assigned";
+	
 	private String mark;
 	private TypeLocomotive typeLocomotive;
 
@@ -19,7 +21,7 @@ public class Locomotive {
 
 	public void setMark(String mark) {
 		if (mark.isEmpty()) {
-			this.mark = "Not assigned";
+			this.mark = MESSAGE_NAME_MARK_EMPTY;
 		}
 		this.mark = mark;
 	}

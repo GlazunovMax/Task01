@@ -12,13 +12,16 @@ public class LuggageWaggon extends Waggon {
 		this.luggage = luggage;
 	}
 
+
+
 	public double getLuggage() {
 		return luggage;
 	}
 
-	public void setLuggage(int luggage) {
-		if (luggage < 0)
+	public void setLuggage(double luggage) {
+		if (luggage < 0) {
 			this.luggage = 0.0;
+		}
 		this.luggage = luggage;
 	}
 
@@ -50,5 +53,7 @@ public class LuggageWaggon extends Waggon {
 	public String toString() {
 		return "LuggageWaggon [luggage=" + luggage + "]";
 	}
+
+	
 
 }

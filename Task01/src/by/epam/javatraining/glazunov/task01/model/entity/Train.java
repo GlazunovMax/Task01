@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class Train {
+	private static final String MESSAGE_NAMETRAIN_EMPTY = "Not assigned";
+	
 	private String nameTrain;
 	private Locomotive locomotive;
 	private List<Waggon> waggons;
@@ -25,7 +27,7 @@ public class Train {
 		int countPassengerSeats = 0;
 
 		for (Waggon waggon : waggons) {
-			if (waggon instanceof PassengerWaggon) {// if
+			if (waggon instanceof PassengerWaggon) {
 				countPassengerSeats += ((PassengerWaggon) waggon).getTypeWaggon().getNumberSeats();
 			}
 		}
@@ -53,6 +55,9 @@ public class Train {
 	}
 
 	public void setNameTrain(String nameTrain) {
+		if (nameTrain.isEmpty()) {
+			this.nameTrain = MESSAGE_NAMETRAIN_EMPTY;
+		}
 		this.nameTrain = nameTrain;
 	}
 
