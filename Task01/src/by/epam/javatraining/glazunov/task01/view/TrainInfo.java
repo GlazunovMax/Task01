@@ -7,10 +7,10 @@ import java.util.Map;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 
 public class TrainInfo {
-	private static final String MESSAGE_LENGHT_TRAIN = "Train name - %s has lehght = %.3f\n";
+	private static final String MESSAGE_LENGHT_TRAIN = "Train name - %s has lehght = %.3f m\n";
 	private static final String MESSAGE_MAX_PASSENGER = "Train name: %s. Has the maximum number of passengers - %d\n";
 	private static final String MESSAGE_MIN_PASSENGER = "Train name: %s. Has the minimum number of passengers - %d\n";
-	private static final String MESSAGE_MAX_LUGGAGE = "Train name - %s has lehght = %.3f\n";
+	private static final String MESSAGE_MAX_LUGGAGE = "Train name - %s has luggage = %.3f kg\n";
 
 	public static void print(Train train) {
 		System.out.println(train.toString());
