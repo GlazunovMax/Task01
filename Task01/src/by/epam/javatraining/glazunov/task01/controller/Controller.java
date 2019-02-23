@@ -1,60 +1,55 @@
 package by.epam.javatraining.glazunov.task01.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 
-import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
-import by.epam.javatraining.glazunov.task01.model.entity.LuggageWaggon;
-import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
-import by.epam.javatraining.glazunov.task01.model.entity.TypeLocomotive;
-import by.epam.javatraining.glazunov.task01.model.entity.TypePassengerWaggon;
-import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.logic.LogicException;
+import by.epam.javatraining.glazunov.task01.model.logic.LogicFactory;
 import by.epam.javatraining.glazunov.task01.model.logic.TrainLogic;
-import by.epam.javatraining.glazunov.task01.utill.LogicException;
-import by.epam.javatraining.glazunov.task01.utill.LogicFactory;
+import by.epam.javatraining.glazunov.task01.utill.BuildTrain;
+import by.epam.javatraining.glazunov.task01.utill.TypeSearch;
 import by.epam.javatraining.glazunov.task01.view.TrainInfo;
+
 /* 
- * Пассажирский железнодорожный транспорт (Railway Transport, Passenger Train). 
- * Определить иерархию подвижного состава железнодорожного транспорта.  
+ *  (Railway Transport, Passenger Train). 
  */
 public class Controller {
 
+	private static final String TRAIN_NAME = "Train ";
+	private static final String MARK_LOCOMOTIVE = "mark ";
+
 	public static void main(String[] args) {
-		
-		Locomotive locomotive = new Locomotive("ЧС2т", TypeLocomotive.ELECTRIC_LOCOMOTIVE);
-		
-		Train t = new Train("Киев-МИнск", locomotive);
-		t.addWaggon(new PassengerWaggon(22.3, TypePassengerWaggon.COUPE));
-		t.addWaggon(new PassengerWaggon(22.3, TypePassengerWaggon.COUPE));
-		t.addWaggon(new PassengerWaggon(24.3, TypePassengerWaggon.RESERVED_BERTH));
-		
-		TrainInfo.print(t);
-		
-		Locomotive locomotive2 = new Locomotive("ЧС4т", TypeLocomotive.HEAT_LOCOMOTIVE);
-		
-		
-		Train t2 = new Train("Кишинев-Минск", locomotive2);
-		t2.addWaggon(new PassengerWaggon(2, TypePassengerWaggon.COUPE));
-		t2.addWaggon(new PassengerWaggon(25, TypePassengerWaggon.RESERVED_BERTH));
-		
-		
-		TrainInfo.print(t2);
-		
-		
-		
-		
-		
+
+		List<Train> trainsEmpty = new ArrayList<>();
+		List<Train> trains = new ArrayList<>();
+
+		for (int i = 1; i < 9; i++) {
+			trains.add(BuildTrain.createTrain(TRAIN_NAME + i, MARK_LOCOMOTIVE + i));
+		}
+
 		LogicFactory factory = LogicFactory.getInstance();
-		TrainLogic train = factory.getTrainLogicImpl();
-		String s = null;
-			try {
-				s = train.findMaxPassengerOnTrain(t, t2);
-			} catch (LogicException e) {
-				System.out.println("search error");//log
-			}
-		System.out.println(s);
-		
-		
-		 
+		TrainLogic logic = factory.getTrainLogicImpl();
+
+		try {
+			TrainInfo.printLenghtTrains(logic.getLenghtTrain(trains));
+
+			TrainInfo.printNumberPassengerPlacesOrLuggage(logic.getNumberOfPassenger(trainsEmpty));
+
+			TrainInfo.printNumberPassengerPlacesOrLuggage(logic.getWeightLuggage(trains));
+
+			TrainInfo.printTrainMaxPassenger(logic.findMaxPassengerOnTrain(trains));
+
+			TrainInfo.printTrainMaxLuggage(logic.findMaxWeightLuggageOnTrain(trains));
+
+			TrainInfo.printTrainMaxPassenger(logic.findMinOrMaxPassengerOnTrain(trains, TypeSearch.MAX));
+
+			TrainInfo.printTrainMinPassenger(logic.findMinOrMaxPassengerOnTrain(trains, TypeSearch.MIN));
+
+		} catch (LogicException e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 }
