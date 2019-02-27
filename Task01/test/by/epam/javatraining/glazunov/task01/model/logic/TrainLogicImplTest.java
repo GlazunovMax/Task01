@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
@@ -17,10 +18,10 @@ import by.epam.javatraining.glazunov.task01.model.entity.TypePassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
 
 public class TrainLogicImplTest {
-	private Train train;
+	private static Train train;
 
-	@Before
-	public void createTrain() {
+	@BeforeClass
+	public static void createTrain() {
 		List<Waggon> waggons = new ArrayList<>();
 		waggons.add(new PassengerWaggon(22.5, TypePassengerWaggon.COUPE));
 
@@ -57,5 +58,11 @@ public class TrainLogicImplTest {
 
 		Assert.assertEquals(expected, train.getOccupiedPlaces());
 	}
+	
+	@AfterClass
+	public static void deleteTrain() {
+		train = null;
+	}
+	
 
 }
