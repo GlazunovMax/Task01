@@ -18,11 +18,13 @@ public class TrainLogicImpl implements TrainLogic {
 	private static final String MESSAGE_OCCUPIED_PLACES = "Train name: %s. Total places - %d. Occupied places - %d.";
 	private static final String MESSAGE_NO_BAGGAGE_WAGGON = "Train name %s has no baggage waggon!";
 	private static final String MESSAGE_OCCUPIED_BAGGAGES = "Train name %s. Free baggage space - %.3f. Occupied baggage space - %.3f.";
-	private static final String MESSAGE_EXCRPTION = "An empty list was passed to the method arguments!";
+	private static final String MESSAGE_EXCEPTION_EMPTY = "An empty list has been passed to the method arguments!";
+	private static final String MESSAGE_EXCEPTION_NULL = "Null link has been passed to the method arguments!";
+	
 
 	@Override
 	public Map<String, BigDecimal> getLenghtTrain(List<Train> trains) throws LogicException {
-		isListEmpty(trains);
+		isListEmptyOrNull(trains);
 
 		Locomotive locomotive;
 		List<Waggon> waggons;
@@ -55,7 +57,7 @@ public class TrainLogicImpl implements TrainLogic {
 
 	@Override
 	public List<String> getNumberOfPassenger(List<Train> trains) throws LogicException {
-		isListEmpty(trains);
+		isListEmptyOrNull(trains);
 
 		List<String> listPlaces = new ArrayList<>();
 		int totalPlaces = 0;
@@ -78,7 +80,7 @@ public class TrainLogicImpl implements TrainLogic {
 
 	@Override
 	public List<String> getWeightLuggage(List<Train> trains) throws LogicException {
-		isListEmpty(trains);
+		isListEmptyOrNull(trains);
 
 		List<String> listLuggage = new ArrayList<>();
 		BigDecimal totalLuggage;
@@ -104,7 +106,7 @@ public class TrainLogicImpl implements TrainLogic {
 
 	@Override
 	public Train findMinOrMaxPassengerOnTrain(List<Train> trains, TypeSearch typeSearch) throws LogicException {
-		isListEmpty(trains);
+		isListEmptyOrNull(trains);
 
 		Train trainMaxPassenger;
 		int index = 0;
@@ -126,7 +128,7 @@ public class TrainLogicImpl implements TrainLogic {
 
 	@Override
 	public Train findMaxPassengerOnTrain(List<Train> trains) throws LogicException {
-		isListEmpty(trains);
+		isListEmptyOrNull(trains);
 
 		Collections.sort(trains, new PassengerNumberComparator());
 
@@ -137,7 +139,7 @@ public class TrainLogicImpl implements TrainLogic {
 
 	@Override
 	public Train findMaxWeightLuggageOnTrain(List<Train> trains) throws LogicException {
-		isListEmpty(trains);
+		isListEmptyOrNull(trains);
 
 		Collections.sort(trains, new LuggageWeightComparator());
 
@@ -146,9 +148,11 @@ public class TrainLogicImpl implements TrainLogic {
 		return trainMaxLuggage;
 	}
 
-	public static void isListEmpty(List<Train> trains) throws LogicException {
-		if (trains.isEmpty()) {
-			throw new LogicException(MESSAGE_EXCRPTION);
+	public static void isListEmptyOrNull(List<Train> trains) throws LogicException {
+		if (trains == null) {
+			throw new LogicException(MESSAGE_EXCEPTION_NULL);
+		}else if(trains.isEmpty()) {
+			throw new LogicException(MESSAGE_EXCEPTION_EMPTY);
 		}
 	}
 

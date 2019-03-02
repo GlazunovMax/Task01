@@ -21,6 +21,7 @@ public class Controller {
 
 	public static void main(String[] args) {
 
+		List<Train> trainsNull = null;
 		List<Train> trainsEmpty = new ArrayList<>();
 		List<Train> trains = new ArrayList<>();
 
@@ -32,7 +33,7 @@ public class Controller {
 		TrainLogic logic = factory.getTrainLogicImpl();
 
 		try {
-			TrainInfo.printLenghtTrains(logic.getLenghtTrain(trains));
+			TrainInfo.printLenghtTrains(logic.getLenghtTrain(trainsNull));
 
 			TrainInfo.printNumberPassengerPlacesOrLuggage(logic.getNumberOfPassenger(trainsEmpty));
 
