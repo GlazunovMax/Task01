@@ -12,12 +12,13 @@ import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.TypeLocomotive;
 import by.epam.javatraining.glazunov.task01.model.entity.TypePassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.exception.MarkLocomotiveIsEmptyException;
 
 public class BuildTrain {
-	private static final String MESSAGE_MARK_LOCO_IS_EMPTY = "Mark not specified!";
+	//private static final String MESSAGE_MARK_LOCO_IS_EMPTY = "Mark not specified!";
 	static Random random = new Random();
 
-	public static Train createTrain(String nameTrain, String mark) {
+	public Train createTrain(String nameTrain, String mark) {
 		Train train = null;
 
 		train = new Train(nameTrain, createLocomotie(mark), createWaggons());
@@ -30,14 +31,15 @@ public class BuildTrain {
 	}
 
 	private static Locomotive createLocomotie(String markLocomotive) {
-		if (markLocomotive.isEmpty()) {
-			markLocomotive = MESSAGE_MARK_LOCO_IS_EMPTY;
-		}
-
 		Locomotive locomotive = new Locomotive();
 		TypeLocomotive[] type = TypeLocomotive.values();
 
-		locomotive.setMark(markLocomotive);
+		try {
+			locomotive.setMark(markLocomotive);
+		} catch (MarkLocomotiveIsEmptyException e) {
+			System.err.println(e.getMessage());
+		}
+		
 		locomotive.setTypeLocomotive(type[random.nextInt(type.length)]);
 
 		return locomotive;
@@ -67,7 +69,7 @@ public class BuildTrain {
 
 	}
 
-	public static BigDecimal fillLuggagePassenger(Train train) {
+	private static BigDecimal fillLuggagePassenger(Train train) {
 		List<Waggon> waggons = train.getWaggons();
 
 		BigDecimal rank = train.getTotalWeightLuggage();
