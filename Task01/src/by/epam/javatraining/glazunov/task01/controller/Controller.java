@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
-import by.epam.javatraining.glazunov.task01.model.logic.LogicException;
+import by.epam.javatraining.glazunov.task01.model.exception.DaoException;
 import by.epam.javatraining.glazunov.task01.model.logic.LogicFactory;
 import by.epam.javatraining.glazunov.task01.model.logic.TrainLogic;
-import by.epam.javatraining.glazunov.task01.utill.BuildTrain;
 import by.epam.javatraining.glazunov.task01.utill.TypeSearch;
 import by.epam.javatraining.glazunov.task01.view.TrainInfo;
 
@@ -15,9 +14,7 @@ import by.epam.javatraining.glazunov.task01.view.TrainInfo;
  *  (Railway Transport, Passenger Train). 
  */
 public class Controller {
-
-	private static final String TRAIN_NAME = "Train ";
-	private static final String MARK_LOCOMOTIVE = "mark ";
+	private static final int NUMBER_OF_TRAIN_IN_SCHEDULE = 6;
 
 	public static void main(String[] args) {
 
@@ -25,12 +22,16 @@ public class Controller {
 		List<Train> trainsEmpty = new ArrayList<>();
 		List<Train> trains = new ArrayList<>();
 
-		for (int i = 1; i < 9; i++) {
-			trains.add(BuildTrain.createTrain(TRAIN_NAME + i, MARK_LOCOMOTIVE + i));
-		}
-
 		LogicFactory factory = LogicFactory.getInstance();
 		TrainLogic logic = factory.getTrainLogicImpl();
+		
+		try {
+			trains = logic.createTrainSchedule(NUMBER_OF_TRAIN_IN_SCHEDULE);
+		} catch (DaoException e1) {
+			System.err.println(e1.getMessage());
+		}
+		
+		
 
 		try {
 			TrainInfo.printLenghtTrains(logic.getLenghtTrain(trainsNull));
@@ -47,8 +48,8 @@ public class Controller {
 
 			TrainInfo.printTrainMinPassenger(logic.findMinOrMaxPassengerOnTrain(trains, TypeSearch.MIN));
 
-		} catch (LogicException e) {
-			System.out.println(e.getMessage());
+		} catch (DaoException e) {
+			System.err.println(e.getMessage());
 		}
 
 	}
