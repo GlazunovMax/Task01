@@ -9,7 +9,10 @@ import java.util.TreeMap;
 
 import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
+import by.epam.javatraining.glazunov.task01.model.entity.TrainSchedule;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.exception.DaoException;
+import by.epam.javatraining.glazunov.task01.utill.BuildTrain;
 import by.epam.javatraining.glazunov.task01.utill.LuggageWeightComparator;
 import by.epam.javatraining.glazunov.task01.utill.PassengerNumberComparator;
 import by.epam.javatraining.glazunov.task01.utill.TypeSearch;
@@ -23,7 +26,7 @@ public class TrainLogicImpl implements TrainLogic {
 	
 
 	@Override
-	public Map<String, BigDecimal> getLenghtTrain(List<Train> trains) throws LogicException {
+	public Map<String, BigDecimal> getLenghtTrain(List<Train> trains) throws DaoException {
 		isListEmptyOrNull(trains);
 
 		Locomotive locomotive;
@@ -56,7 +59,7 @@ public class TrainLogicImpl implements TrainLogic {
 	}
 
 	@Override
-	public List<String> getNumberOfPassenger(List<Train> trains) throws LogicException {
+	public List<String> getNumberOfPassenger(List<Train> trains) throws DaoException {
 		isListEmptyOrNull(trains);
 
 		List<String> listPlaces = new ArrayList<>();
@@ -79,7 +82,7 @@ public class TrainLogicImpl implements TrainLogic {
 	}
 
 	@Override
-	public List<String> getWeightLuggage(List<Train> trains) throws LogicException {
+	public List<String> getWeightLuggage(List<Train> trains) throws DaoException {
 		isListEmptyOrNull(trains);
 
 		List<String> listLuggage = new ArrayList<>();
@@ -105,7 +108,7 @@ public class TrainLogicImpl implements TrainLogic {
 	}
 
 	@Override
-	public Train findMinOrMaxPassengerOnTrain(List<Train> trains, TypeSearch typeSearch) throws LogicException {
+	public Train findMinOrMaxPassengerOnTrain(List<Train> trains, TypeSearch typeSearch) throws DaoException {
 		isListEmptyOrNull(trains);
 
 		Train trainMaxPassenger;
@@ -127,7 +130,7 @@ public class TrainLogicImpl implements TrainLogic {
 	}
 
 	@Override
-	public Train findMaxPassengerOnTrain(List<Train> trains) throws LogicException {
+	public Train findMaxPassengerOnTrain(List<Train> trains) throws DaoException {
 		isListEmptyOrNull(trains);
 
 		Collections.sort(trains, new PassengerNumberComparator());
@@ -138,7 +141,7 @@ public class TrainLogicImpl implements TrainLogic {
 	}
 
 	@Override
-	public Train findMaxWeightLuggageOnTrain(List<Train> trains) throws LogicException {
+	public Train findMaxWeightLuggageOnTrain(List<Train> trains) throws DaoException {
 		isListEmptyOrNull(trains);
 
 		Collections.sort(trains, new LuggageWeightComparator());
@@ -147,13 +150,35 @@ public class TrainLogicImpl implements TrainLogic {
 
 		return trainMaxLuggage;
 	}
+	 
+	private static final String TRAIN_NAME = "Train ";
+	private static final String MARK_LOCOMOTIVE = "mark ";
+	private static final String MESSAGE_NUMBER_TRAIN_NEGATIVE = "Number of train should be >= 0 ";
+	@Override
+	public List<Train> createTrainSchedule(int numberOfTrains) throws DaoException {
+		if(numberOfTrains < 0) {
+			throw new DaoException(MESSAGE_NUMBER_TRAIN_NEGATIVE);
+		}
+		
+		TrainSchedule trainSchedule = new TrainSchedule();
+		
+		 for (int i = 0; i < numberOfTrains; i++) {
+			trainSchedule.addTrain(new BuildTrain().createTrain(TRAIN_NAME + i, MARK_LOCOMOTIVE + i));
+		}
+		
+		return trainSchedule.getListTrains();
+	}
+	
 
-	public static void isListEmptyOrNull(List<Train> trains) throws LogicException {
+
+	public static void isListEmptyOrNull(List<Train> trains) throws DaoException {
 		if (trains == null) {
-			throw new LogicException(MESSAGE_EXCEPTION_NULL);
+			throw new DaoException(MESSAGE_EXCEPTION_NULL);
 		}else if(trains.isEmpty()) {
-			throw new LogicException(MESSAGE_EXCEPTION_EMPTY);
+			throw new DaoException(MESSAGE_EXCEPTION_EMPTY);
 		}
 	}
+
+	
 
 }
