@@ -3,8 +3,10 @@ package by.epam.javatraining.glazunov.task01.model.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import by.epam.javatraining.glazunov.task01.model.exception.NameTrainIsEmptyException;
+
 public class Train {
-	private static final String MESSAGE_NAMETRAIN_EMPTY = "Not assigned";
+	private static final String MESSAGE_NAMETRAIN_EMPTY = "Name Train is not assigned or null link has been passed";
 	
 	private String nameTrain;
 	private Locomotive locomotive;
@@ -40,7 +42,7 @@ public class Train {
 
 		for (Waggon waggon : waggons) {
 			if (waggon instanceof LuggageWaggon) {
-				weightLug = new BigDecimal(((LuggageWaggon) waggon).getLuggage());
+				weightLug = new BigDecimal(((LuggageWaggon) waggon).getLuggageWeight());
 
 				weightLuggage = weightLuggage.add(weightLug);
 			}
@@ -54,11 +56,13 @@ public class Train {
 		return nameTrain;
 	}
 
-	public void setNameTrain(String nameTrain) {
-		if (nameTrain.isEmpty()) {
-			this.nameTrain = MESSAGE_NAMETRAIN_EMPTY;
+	public void setNameTrain(String nameTrain) throws NameTrainIsEmptyException {
+		if (nameTrain == null || nameTrain.isEmpty()) {
+			throw new NameTrainIsEmptyException(MESSAGE_NAMETRAIN_EMPTY);
+		}else {
+			this.nameTrain = nameTrain;
 		}
-		this.nameTrain = nameTrain;
+		
 	}
 
 	public Locomotive getLocomotive() {

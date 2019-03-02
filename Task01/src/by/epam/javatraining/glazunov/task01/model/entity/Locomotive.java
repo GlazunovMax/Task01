@@ -1,7 +1,9 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
+import by.epam.javatraining.glazunov.task01.model.exception.MarkLocomotiveIsEmptyException;
+
 public class Locomotive {
-	private static final String MESSAGE_NAME_MARK_EMPTY = "Not assigned";
+	private static final String MESSAGE_NAME_MARK_EMPTY = "Mark Locomotive is not assigned or null link has been passed";
 	
 	private String mark;
 	private TypeLocomotive typeLocomotive;
@@ -19,11 +21,13 @@ public class Locomotive {
 		return mark;
 	}
 
-	public void setMark(String mark) {
-		if (mark.isEmpty()) {
-			this.mark = MESSAGE_NAME_MARK_EMPTY;
+	public void setMark(String mark) throws MarkLocomotiveIsEmptyException {
+		if (mark == null || mark.isEmpty()) {
+			throw new MarkLocomotiveIsEmptyException(MESSAGE_NAME_MARK_EMPTY);
+		}else {
+			this.mark = mark;
 		}
-		this.mark = mark;
+		
 	}
 
 	public TypeLocomotive getTypeLocomotive() {
