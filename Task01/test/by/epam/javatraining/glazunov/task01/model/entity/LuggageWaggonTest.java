@@ -1,22 +1,21 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import by.epam.javatraining.glazunov.task01.model.exception.LuggageWeightNegativeException;
 
 public class LuggageWaggonTest {
-	private static LuggageWaggon luggageWaggon;
+	private LuggageWaggon luggageWaggon;
 	
-	@BeforeClass
-	public static void createLuggageWaggon() {
+	@Before
+	public void createLuggageWaggon() {
 		luggageWaggon = new LuggageWaggon();
 	}
 
 	@Test(expected = LuggageWeightNegativeException.class)
-	public void testSetLuggageNegative() throws LuggageWeightNegativeException {
+	public void testShouldThrowExceptionIfLuggageNegative() throws LuggageWeightNegativeException {
 		double luggage = -5.0;
 
 		luggageWaggon.setLuggageWeight(luggage);
@@ -34,8 +33,8 @@ public class LuggageWaggonTest {
 		Assert.assertEquals(expected, actual, 0.001);
 	}
 
-	@AfterClass
+	/*@AfterClass
 	public static void deleteLuggageWaggon() {
 		luggageWaggon = null;
-	}
+	}*/
 }

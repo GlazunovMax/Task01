@@ -1,22 +1,21 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import by.epam.javatraining.glazunov.task01.model.exception.MarkLocomotiveIsEmptyException;
 
 public class LocomotiveTest {
-	private static Locomotive locomotive;
+	private Locomotive locomotive;
 
-	@BeforeClass
-	public static void createLocomotive() {
+	@Before
+	public void createLocomotive() {
 		locomotive = new Locomotive();
 	}
 
 	@Test(expected = MarkLocomotiveIsEmptyException.class)
-	public void setMarkShouldBeEmpty() throws MarkLocomotiveIsEmptyException {
+	public void testShouldThrowExceptionIfMarkIsEmpty() throws MarkLocomotiveIsEmptyException {
 		String mark = "";
 
 		locomotive.setMark(mark);
@@ -34,9 +33,9 @@ public class LocomotiveTest {
 		Assert.assertEquals(expected, actual);
 	}
 
-	@AfterClass
+	/*@AfterClass
 	public static void deleteTrain() {
 		locomotive = null;
-	}
+	}*/
 
 }
