@@ -7,7 +7,7 @@ public class TrainException extends Exception{
 		super();
 	}
 	
-	public TrainException(String message, Exception e) {
+	public TrainException(String message, TechnicalException e) {
 		super(message, e);
 	}
 
@@ -15,7 +15,7 @@ public class TrainException extends Exception{
 		super(message);
 	}
 
-	public TrainException(Exception e) {
+	public TrainException(TechnicalException e) {
 		super(e);
 	}
 	
