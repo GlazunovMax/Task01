@@ -1,22 +1,29 @@
 package by.epam.javatraining.glazunov.task01.model.logic;
 
 public class LogicFactory {
-	private static LogicFactory instance;
-
-	private final TrainLogic trainLogicImpl = new TrainLogicImpl();
+	private static LogicFactory instance = new LogicFactory();;
+	
+	private final CalculateTrain trainCalculate = new CalculateTrainImpl();
+	private final SortTrain sortTrain = new SortTrainImpl();
+	private final FindTrain findTrain = new FindTrainImpl();
 
 	private LogicFactory() {
 	}
 
 	public static LogicFactory getInstance() {
-		if (instance == null) {
-			instance = new LogicFactory();
-		}
 		return instance;
 	}
 
-	public TrainLogic getTrainLogicImpl() {
-		return trainLogicImpl;
+	public SortTrain getSortTrainImpl() {
+		return sortTrain;
+	}
+
+	public CalculateTrain getTrainCalculateImpl() {
+		return trainCalculate;
+	}
+
+	public FindTrain getFindTrainImpl() {
+		return findTrain;
 	}
 
 }
