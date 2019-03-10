@@ -9,7 +9,7 @@ public class Locomotive {
 	private TypeLocomotive typeLocomotive;
 
 	public Locomotive() {
-		this.typeLocomotive = TypeLocomotive.ELECTRIC_LOCOMOTIVE;
+		this.typeLocomotive = TypeLocomotive.HEAT_LOCOMOTIVE;
 	}
 
 	public Locomotive(String mark, TypeLocomotive typeLocomotive) {

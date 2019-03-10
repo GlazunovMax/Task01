@@ -1,38 +1,35 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Arrays;
 
 import by.epam.javatraining.glazunov.task01.model.exception.NameTrainIsEmptyException;
 
 public class Train {
 	private static final String MESSAGE_NAMETRAIN_EMPTY = "Name Train is not assigned or null link has been passed";
-	
+
 	private String nameTrain;
 	private Locomotive locomotive;
-	private List<Waggon> waggons;
-	private int occupiedPlaces;
-	private BigDecimal occupiedLuggage;
+	private Waggon[] waggons;
 
 	public Train() {
 	}
 
-	public Train(String nameTrain, Locomotive locomotive, List<Waggon> waggons) {
+	public Train(String nameTrain, Locomotive locomotive, Waggon[] waggons) {
 		this.nameTrain = nameTrain;
 		this.locomotive = locomotive;
 		this.waggons = waggons;
-		this.occupiedPlaces = 0;
-		this.occupiedLuggage = new BigDecimal(0);
 	}
 
 	public int getTotalNumberPassengerSeats() {
 		int countPassengerSeats = 0;
 
-		for (Waggon waggon : waggons) {
-			if (waggon instanceof PassengerWaggon) {
-				countPassengerSeats += ((PassengerWaggon) waggon).getTypeWaggon().getNumberSeats();
+		for (int i = 0; i < waggons.length; i++) {
+			if (waggons[i] instanceof PassengerWaggon) {
+				countPassengerSeats += ((PassengerWaggon) waggons[i]).getTypeWaggon().getNumberSeats();
 			}
 		}
+
 		return countPassengerSeats;
 	}
 
@@ -40,9 +37,9 @@ public class Train {
 		BigDecimal weightLuggage = new BigDecimal(0);
 		BigDecimal weightLug;
 
-		for (Waggon waggon : waggons) {
-			if (waggon instanceof LuggageWaggon) {
-				weightLug = new BigDecimal(((LuggageWaggon) waggon).getLuggageWeight());
+		for (int i = 0; i < waggons.length; i++) {
+			if (waggons[i] instanceof LuggageWaggon) {
+				weightLug = new BigDecimal(((LuggageWaggon) waggons[i]).getLuggageWeight());
 
 				weightLuggage = weightLuggage.add(weightLug);
 			}
@@ -50,7 +47,6 @@ public class Train {
 
 		return weightLuggage.setScale(3, BigDecimal.ROUND_HALF_DOWN);
 	}
-	
 
 	public String getNameTrain() {
 		return nameTrain;
@@ -59,10 +55,10 @@ public class Train {
 	public void setNameTrain(String nameTrain) throws NameTrainIsEmptyException {
 		if (nameTrain == null || nameTrain.isEmpty()) {
 			throw new NameTrainIsEmptyException(MESSAGE_NAMETRAIN_EMPTY);
-		}else {
+		} else {
 			this.nameTrain = nameTrain;
 		}
-		
+
 	}
 
 	public Locomotive getLocomotive() {
@@ -73,28 +69,12 @@ public class Train {
 		this.locomotive = locomotive;
 	}
 
-	public List<Waggon> getWaggons() {
+	public Waggon[] getWaggons() {
 		return waggons;
 	}
 
-	public void setWaggons(List<Waggon> waggons) {
+	public void setWaggons(Waggon[] waggons) {
 		this.waggons = waggons;
-	}
-
-	public int getOccupiedPlaces() {
-		return occupiedPlaces;
-	}
-
-	public void setOccupiedPlaces(int occupiedPlaces) {
-		this.occupiedPlaces = occupiedPlaces;
-	}
-
-	public BigDecimal getOccupiedLuggage() {
-		return occupiedLuggage;
-	}
-
-	public void setOccupiedLuggage(BigDecimal occupiedLuggage) {
-		this.occupiedLuggage = occupiedLuggage;
 	}
 
 	@Override
@@ -103,9 +83,7 @@ public class Train {
 		int result = 1;
 		result = prime * result + ((locomotive == null) ? 0 : locomotive.hashCode());
 		result = prime * result + ((nameTrain == null) ? 0 : nameTrain.hashCode());
-		result = prime * result + ((occupiedLuggage == null) ? 0 : occupiedLuggage.hashCode());
-		result = prime * result + occupiedPlaces;
-		result = prime * result + ((waggons == null) ? 0 : waggons.hashCode());
+		result = prime * result + Arrays.hashCode(waggons);
 		return result;
 	}
 
@@ -128,25 +106,15 @@ public class Train {
 				return false;
 		} else if (!nameTrain.equals(other.nameTrain))
 			return false;
-		if (occupiedLuggage == null) {
-			if (other.occupiedLuggage != null)
-				return false;
-		} else if (!occupiedLuggage.equals(other.occupiedLuggage))
-			return false;
-		if (occupiedPlaces != other.occupiedPlaces)
-			return false;
-		if (waggons == null) {
-			if (other.waggons != null)
-				return false;
-		} else if (!waggons.equals(other.waggons))
+		if (!Arrays.equals(waggons, other.waggons))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Train [nameTrain=" + nameTrain + ", locomotive=" + locomotive + ", waggons=" + waggons
-				+ ", occupiedPlaces=" + occupiedPlaces + ", occupiedLuggage=" + occupiedLuggage + "]";
+		return "Train [nameTrain=" + nameTrain + ", locomotive=" + locomotive + ", waggons=" + Arrays.toString(waggons)
+				+ "]";
 	}
 
 }

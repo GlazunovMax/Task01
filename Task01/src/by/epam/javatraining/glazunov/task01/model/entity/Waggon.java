@@ -14,16 +14,6 @@ public abstract class Waggon {
 		return lehghtWaggon;
 	}
 
-	/*public void setLehghtWaggon(double lehghtWaggon) {
-		if (lehghtWaggon < 0) {
-			this.lehghtWaggon = 0.0;
-		}else {
-			this.lehghtWaggon = lehghtWaggon;
-		}
-
-		
-	}*/
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,7 +40,7 @@ public abstract class Waggon {
 
 	@Override
 	public String toString() {
-		return "Waggon [lehghtWaggon=" + lehghtWaggon + "]";
+		return "lehghtWaggon=" + lehghtWaggon;
 	}
 
 }
