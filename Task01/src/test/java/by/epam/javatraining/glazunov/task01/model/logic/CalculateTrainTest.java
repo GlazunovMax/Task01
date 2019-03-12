@@ -7,13 +7,9 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
-import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
-import by.epam.javatraining.glazunov.task01.model.entity.LuggageWaggon;
-import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
-import by.epam.javatraining.glazunov.task01.model.entity.Train;
-import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
-import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.entity.*;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
+
 
 public class CalculateTrainTest {
 	private Train train;
