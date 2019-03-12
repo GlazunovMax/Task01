@@ -3,26 +3,26 @@ package by.epam.javatraining.glazunov.task01.model.entity;
 public class PassengerWaggon extends Waggon {
 	private static final double LEHGHT_PASSENGER_WAGGONS = 24.5;
 
-	private TypePassengerWaggon typeWaggon;
+	private PassengerWaggonType typeWaggon;
 	private int occupiedPlaces;
 	
 	public PassengerWaggon() {
 		super();
 	}
 	
-	public PassengerWaggon(TypePassengerWaggon typeWaggon, int occupiedPlaces) {
+	public PassengerWaggon(PassengerWaggonType typeWaggon, int occupiedPlaces) {
 		super(LEHGHT_PASSENGER_WAGGONS);
 		this.typeWaggon = typeWaggon;
 		this.occupiedPlaces = occupiedPlaces;
 	}
 
 
-	public TypePassengerWaggon getTypeWaggon() {
+	public PassengerWaggonType getTypeWaggon() {
 		return typeWaggon;
 	}
 
 
-	public void setTypeWaggon(TypePassengerWaggon typeWaggon) {
+	public void setTypeWaggon(PassengerWaggonType typeWaggon) {
 		this.typeWaggon = typeWaggon;
 	}
 

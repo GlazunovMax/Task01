@@ -6,13 +6,13 @@ public class Locomotive {
 	private static final String MESSAGE_NAME_MARK_EMPTY = "Mark Locomotive is not assigned or null link has been passed";
 	
 	private String mark;
-	private TypeLocomotive typeLocomotive;
+	private LocomotiveType typeLocomotive;
 
 	public Locomotive() {
-		this.typeLocomotive = TypeLocomotive.HEAT_LOCOMOTIVE;
+		this.typeLocomotive = LocomotiveType.HEAT_LOCOMOTIVE;
 	}
 
-	public Locomotive(String mark, TypeLocomotive typeLocomotive) {
+	public Locomotive(String mark, LocomotiveType typeLocomotive) {
 		this.mark = mark;
 		this.typeLocomotive = typeLocomotive;
 	}
@@ -30,11 +30,11 @@ public class Locomotive {
 		
 	}
 
-	public TypeLocomotive getTypeLocomotive() {
+	public LocomotiveType getTypeLocomotive() {
 		return typeLocomotive;
 	}
 
-	public void setTypeLocomotive(TypeLocomotive typeLocomotive) {
+	public void setTypeLocomotive(LocomotiveType typeLocomotive) {
 		this.typeLocomotive = typeLocomotive;
 	}
 

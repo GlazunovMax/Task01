@@ -33,8 +33,8 @@ public class TrainCreatorMain {
 			
 
 			controller.calculateLenghtTrain(train);
-			/*controller.calculateOccupiedPassengerSeats(train);
-			controller.calculateWeightOccupiedLuggage(train);*/
+			controller.calculateOccupiedPassengerSeats(train);
+			controller.calculateWeightOccupiedLuggage(train);
 
 		} catch (TechnicalException e) {
 			System.err.println(e.getMessage());

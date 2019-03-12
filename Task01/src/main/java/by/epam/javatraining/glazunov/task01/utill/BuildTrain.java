@@ -7,8 +7,8 @@ import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
 import by.epam.javatraining.glazunov.task01.model.entity.LuggageWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
-import by.epam.javatraining.glazunov.task01.model.entity.TypeLocomotive;
-import by.epam.javatraining.glazunov.task01.model.entity.TypePassengerWaggon;
+import by.epam.javatraining.glazunov.task01.model.entity.LocomotiveType;
+import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
 import by.epam.javatraining.glazunov.task01.model.exception.MarkLocomotiveIsEmptyException;
 
@@ -22,7 +22,7 @@ public class BuildTrain {
 
 	private static Locomotive createLocomotie(String markLocomotive) {
 		Locomotive locomotive = new Locomotive();
-		TypeLocomotive[] type = TypeLocomotive.values();
+		LocomotiveType[] type = LocomotiveType.values();
 
 		try {
 			locomotive.setMark(markLocomotive);
@@ -48,11 +48,11 @@ public class BuildTrain {
 
 		Waggon[] waggons = new Waggon[allWaggons];
 
-		TypePassengerWaggon typeWaggon;
+		PassengerWaggonType typeWaggon;
 		int occupiedPlaces;
 
 		for (int i = 0; i < countPassengerWaggon; i++) {
-			typeWaggon = TypePassengerWaggon.values()[random.nextInt(TypePassengerWaggon.values().length)];
+			typeWaggon = PassengerWaggonType.values()[random.nextInt(PassengerWaggonType.values().length)];
 			occupiedPlaces = random.nextInt(typeWaggon.getNumberSeats());
 
 			waggons[i] = new PassengerWaggon(typeWaggon, occupiedPlaces);

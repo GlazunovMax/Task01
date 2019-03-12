@@ -11,11 +11,11 @@ import by.epam.javatraining.glazunov.task01.model.entity.Locomotive;
 import by.epam.javatraining.glazunov.task01.model.entity.LuggageWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
-import by.epam.javatraining.glazunov.task01.model.entity.TypePassengerWaggon;
+import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
 
-public class CalculateTrainImplTest {
+public class CalculateTrainTest {
 	private Train train;
 	private CalculateTrain calculateTrain;
 
@@ -23,8 +23,8 @@ public class CalculateTrainImplTest {
 	public void createTrain() {
 		Waggon[] waggons = new Waggon[3];
 
-		waggons[0] = new PassengerWaggon(TypePassengerWaggon.COUPE, 26);
-		waggons[1] = new PassengerWaggon(TypePassengerWaggon.THIRD_CLASS, 54);
+		waggons[0] = new PassengerWaggon(PassengerWaggonType.COUPE, 26);
+		waggons[1] = new PassengerWaggon(PassengerWaggonType.THIRD_CLASS, 54);
 		waggons[2] = new LuggageWaggon(3500, new BigDecimal(2550));
 
 		train = new Train("NameTrain", new Locomotive(), waggons);
