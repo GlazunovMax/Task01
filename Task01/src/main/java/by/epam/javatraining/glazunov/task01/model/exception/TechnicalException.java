@@ -1,7 +1,6 @@
 package by.epam.javatraining.glazunov.task01.model.exception;
 
-public class TechnicalException extends TrainException {
-	private static final long serialVersionUID = -333395166085894004L;
+public class TechnicalException extends ProjectException {
 
 	public TechnicalException() {
 		super();
