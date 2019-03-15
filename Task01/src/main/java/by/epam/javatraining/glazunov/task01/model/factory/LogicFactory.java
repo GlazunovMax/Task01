@@ -1,4 +1,11 @@
-package by.epam.javatraining.glazunov.task01.model.logic;
+package by.epam.javatraining.glazunov.task01.model.factory;
+
+import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrain;
+import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrainImpl;
+import by.epam.javatraining.glazunov.task01.model.logic.FindTrain;
+import by.epam.javatraining.glazunov.task01.model.logic.FindTrainImpl;
+import by.epam.javatraining.glazunov.task01.model.logic.SortTrain;
+import by.epam.javatraining.glazunov.task01.model.logic.SortTrainImpl;
 
 public class LogicFactory {
 	private static LogicFactory instance = new LogicFactory();;
