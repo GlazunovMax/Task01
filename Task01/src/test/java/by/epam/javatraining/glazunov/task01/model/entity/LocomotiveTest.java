@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import by.epam.javatraining.glazunov.task01.model.exception.MarkLocomotiveIsEmptyException;
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalMarkLocomotiveException;
 
 public class LocomotiveTest {
 	private Locomotive locomotive;
@@ -14,15 +14,15 @@ public class LocomotiveTest {
 		locomotive = new Locomotive();
 	}
 
-	@Test(expected = MarkLocomotiveIsEmptyException.class)
-	public void testShouldThrowExceptionIfMarkIsEmpty() throws MarkLocomotiveIsEmptyException {
+	@Test(expected = IllegalMarkLocomotiveException.class)
+	public void testShouldThrowExceptionIfMarkIsEmpty() throws IllegalMarkLocomotiveException {
 		String mark = "";
 
 		locomotive.setMark(mark);
 	}
 
 	@Test
-	public void setMarkNotEmpty() throws MarkLocomotiveIsEmptyException {
+	public void setMarkNotEmpty() throws IllegalMarkLocomotiveException {
 		String mark = "Mark";
 
 		locomotive.setMark(mark);

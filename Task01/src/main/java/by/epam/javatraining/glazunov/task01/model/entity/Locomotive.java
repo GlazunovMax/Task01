@@ -1,6 +1,6 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-import by.epam.javatraining.glazunov.task01.model.exception.MarkLocomotiveIsEmptyException;
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalMarkLocomotiveException;
 
 public class Locomotive {
 	private static final String MESSAGE_NAME_MARK_EMPTY = "Mark Locomotive is not assigned or null link has been passed";
@@ -21,13 +21,12 @@ public class Locomotive {
 		return mark;
 	}
 
-	public void setMark(String mark) throws MarkLocomotiveIsEmptyException {
+	public void setMark(String mark) throws IllegalMarkLocomotiveException {
 		if (mark == null || mark.isEmpty()) {
-			throw new MarkLocomotiveIsEmptyException(MESSAGE_NAME_MARK_EMPTY);
-		}else {
-			this.mark = mark;
+			throw new IllegalMarkLocomotiveException(MESSAGE_NAME_MARK_EMPTY);
 		}
-		
+			
+		this.mark = mark;
 	}
 
 	public LocomotiveType getTypeLocomotive() {

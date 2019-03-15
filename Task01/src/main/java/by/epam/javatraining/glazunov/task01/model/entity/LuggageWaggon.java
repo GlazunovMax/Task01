@@ -2,12 +2,11 @@ package by.epam.javatraining.glazunov.task01.model.entity;
 
 import java.math.BigDecimal;
 
-import by.epam.javatraining.glazunov.task01.model.exception.LuggageWeightNegativeException;
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalLuggageWeightException;
 
 public class LuggageWaggon extends Waggon {
 	private static final String MESSAGE_WEIGHT_LUGGAGE_NEGATIVE = "Baggage weight can not be negative";
 	private static final double LEHGHT_LUGGAGE_WAGGONS = 29.3;
-	//private static final double MAX_LUGGAGE_IN_LAGGAGE_WAGGONS = 3500;
 	
 	private double luggageWeight;
 	private BigDecimal occupiedLuggage;
@@ -26,9 +25,9 @@ public class LuggageWaggon extends Waggon {
 		return luggageWeight;
 	}
 
-	public void setLuggageWeight(double luggageWeight) throws LuggageWeightNegativeException {
+	public void setLuggageWeight(double luggageWeight) throws IllegalLuggageWeightException {
 		if (luggageWeight < 0.0) {
-			throw new LuggageWeightNegativeException(MESSAGE_WEIGHT_LUGGAGE_NEGATIVE);
+			throw new IllegalLuggageWeightException(MESSAGE_WEIGHT_LUGGAGE_NEGATIVE);
 		} else {
 			this.luggageWeight = luggageWeight;
 		}
