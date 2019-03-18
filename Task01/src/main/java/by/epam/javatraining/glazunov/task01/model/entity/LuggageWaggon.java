@@ -3,22 +3,24 @@ package by.epam.javatraining.glazunov.task01.model.entity;
 import java.math.BigDecimal;
 
 import by.epam.javatraining.glazunov.task01.model.exception.IllegalLuggageWeightException;
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalLuggageOccupiedException;
 
 public class LuggageWaggon extends Waggon {
 	private static final String MESSAGE_WEIGHT_LUGGAGE_NEGATIVE = "Baggage weight can not be negative";
+	private static final String MESSAGE_OCCUPIED_LUGGAGE_NEGATIVE = "Baggage occupied can not be negative";
 	private static final double LEHGHT_LUGGAGE_WAGGONS = 29.3;
 	
 	private double luggageWeight;
-	private BigDecimal occupiedLuggage;
+	private BigDecimal luggageOccupied;
 
 	public LuggageWaggon() {
 		super();
 	}
 
-	public LuggageWaggon(double luggageWeight, BigDecimal occupiedLuggage) {
+	public LuggageWaggon(double luggageWeight, BigDecimal luggageOccupied) {
 		super(LEHGHT_LUGGAGE_WAGGONS);
 		this.luggageWeight = luggageWeight;
-		this.occupiedLuggage = occupiedLuggage;
+		this.luggageOccupied = luggageOccupied;
 	}
 
 	public double getLuggageWeight() {
@@ -26,19 +28,23 @@ public class LuggageWaggon extends Waggon {
 	}
 
 	public void setLuggageWeight(double luggageWeight) throws IllegalLuggageWeightException {
-		if (luggageWeight < 0.0) {
-			throw new IllegalLuggageWeightException(MESSAGE_WEIGHT_LUGGAGE_NEGATIVE);
-		} else {
+		if (luggageWeight > 0.0) {
 			this.luggageWeight = luggageWeight;
+		} else {
+			throw new IllegalLuggageWeightException(MESSAGE_WEIGHT_LUGGAGE_NEGATIVE);
 		}
 	}
 
-	public BigDecimal getOccupiedLuggage() {
-		return occupiedLuggage;
+	public BigDecimal getLuggageOccupied() {
+		return luggageOccupied;
 	}
 
-	public void setOccupiedLuggage(BigDecimal occupiedLuggage) {
-		this.occupiedLuggage = occupiedLuggage;
+	public void setLuggageOccupied(BigDecimal luggageOccupied) throws IllegalLuggageOccupiedException {
+		if (luggageOccupied.compareTo(BigDecimal.ZERO) > 0) {
+			this.luggageOccupied = luggageOccupied;
+		} else {
+			throw new IllegalLuggageOccupiedException(MESSAGE_OCCUPIED_LUGGAGE_NEGATIVE);
+		}
 	}
 
 	@Override
@@ -48,7 +54,7 @@ public class LuggageWaggon extends Waggon {
 		long temp;
 		temp = Double.doubleToLongBits(luggageWeight);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((occupiedLuggage == null) ? 0 : occupiedLuggage.hashCode());
+		result = prime * result + ((luggageOccupied == null) ? 0 : luggageOccupied.hashCode());
 		return result;
 	}
 
@@ -63,17 +69,17 @@ public class LuggageWaggon extends Waggon {
 		LuggageWaggon other = (LuggageWaggon) obj;
 		if (Double.doubleToLongBits(luggageWeight) != Double.doubleToLongBits(other.luggageWeight))
 			return false;
-		if (occupiedLuggage == null) {
-			if (other.occupiedLuggage != null)
+		if (luggageOccupied == null) {
+			if (other.luggageOccupied != null)
 				return false;
-		} else if (!occupiedLuggage.equals(other.occupiedLuggage))
+		} else if (!luggageOccupied.equals(other.luggageOccupied))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "LuggageWaggon [luggageWeight=" + luggageWeight + ", occupiedLuggage=" + occupiedLuggage + ", " + super.toString() + "]";
+		return "LuggageWaggon [luggageWeight=" + luggageWeight + ", luggageOccupied=" + luggageOccupied + ", " + super.toString() + "]";
 	}
 
 }

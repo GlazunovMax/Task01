@@ -1,48 +1,50 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-import by.epam.javatraining.glazunov.task01.model.exception.IllegalMarkLocomotiveException;
+import org.apache.log4j.Logger;
+
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalLocomotiveMarkException;
 
 public class Locomotive {
 	private static final String MESSAGE_NAME_MARK_EMPTY = "Mark Locomotive is not assigned or null link has been passed";
-	
-	private String mark;
-	private LocomotiveType typeLocomotive;
+	   
+	private String locomotiveMark;
+	private LocomotiveType locomotiveType;
 
 	public Locomotive() {
-		this.typeLocomotive = LocomotiveType.HEAT_LOCOMOTIVE;
+		this.locomotiveType = LocomotiveType.HEAT_LOCOMOTIVE;
 	}
 
-	public Locomotive(String mark, LocomotiveType typeLocomotive) {
-		this.mark = mark;
-		this.typeLocomotive = typeLocomotive;
+	public Locomotive(String locomotiveMark, LocomotiveType locomotiveType) {
+		this.locomotiveMark = locomotiveMark;
+		this.locomotiveType = locomotiveType;
 	}
 
-	public String getMark() {
-		return mark;
+	public String getLocomotiveMark() {
+		return locomotiveMark;
 	}
 
-	public void setMark(String mark) throws IllegalMarkLocomotiveException {
-		if (mark == null || mark.isEmpty()) {
-			throw new IllegalMarkLocomotiveException(MESSAGE_NAME_MARK_EMPTY);
+	public void setLocomotiveMark(String locomotiveMark) throws IllegalLocomotiveMarkException {
+		if (locomotiveMark != null) {
+			this.locomotiveMark = locomotiveMark;
+		}else {
+			throw new IllegalLocomotiveMarkException(MESSAGE_NAME_MARK_EMPTY);
 		}
-			
-		this.mark = mark;
 	}
 
-	public LocomotiveType getTypeLocomotive() {
-		return typeLocomotive;
+	public LocomotiveType getLocomotiveType() {
+		return locomotiveType;
 	}
 
-	public void setTypeLocomotive(LocomotiveType typeLocomotive) {
-		this.typeLocomotive = typeLocomotive;
+	public void setLocomotiveType(LocomotiveType typeLocomotive) {
+		this.locomotiveType = typeLocomotive;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((mark == null) ? 0 : mark.hashCode());
-		result = prime * result + ((typeLocomotive == null) ? 0 : typeLocomotive.hashCode());
+		result = prime * result + ((locomotiveMark == null) ? 0 : locomotiveMark.hashCode());
+		result = prime * result + ((locomotiveType == null) ? 0 : locomotiveType.hashCode());
 		return result;
 	}
 
@@ -55,19 +57,19 @@ public class Locomotive {
 		if (getClass() != obj.getClass())
 			return false;
 		Locomotive other = (Locomotive) obj;
-		if (mark == null) {
-			if (other.mark != null)
+		if (locomotiveMark == null) {
+			if (other.locomotiveMark != null)
 				return false;
-		} else if (!mark.equals(other.mark))
+		} else if (!locomotiveMark.equals(other.locomotiveMark))
 			return false;
-		if (typeLocomotive != other.typeLocomotive)
+		if (locomotiveType != other.locomotiveType)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Locomotive [mark=" + mark + ", typeLocomotive=" + typeLocomotive + "]";
+		return "locomotiveMark = " + locomotiveMark + ", typeLocomotive = " + locomotiveType;
 	}
 
 }

@@ -1,19 +1,21 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalPlacesOccupiedException;
+
 public class PassengerWaggon extends Waggon {
 	private static final double LEHGHT_PASSENGER_WAGGONS = 24.5;
+	private static final String MESSAGE_OCCUPIED_PLACES_NEGATIVE = "Places occupied can not be negative!";
 
 	private PassengerWaggonType typeWaggon;
-	private int occupiedPlaces;
+	private int placeOccupied;
 	
 	public PassengerWaggon() {
-		super();
 	}
 	
-	public PassengerWaggon(PassengerWaggonType typeWaggon, int occupiedPlaces) {
+	public PassengerWaggon(PassengerWaggonType typeWaggon, int placeOccupied) {
 		super(LEHGHT_PASSENGER_WAGGONS);
 		this.typeWaggon = typeWaggon;
-		this.occupiedPlaces = occupiedPlaces;
+		this.placeOccupied = placeOccupied;
 	}
 
 
@@ -27,20 +29,25 @@ public class PassengerWaggon extends Waggon {
 	}
 
 
-	public int getOccupiedPlaces() {
-		return occupiedPlaces;
+	public int getPlaceOccupied() {
+		return placeOccupied;
 	}
 
 
-	public void setOccupiedPlaces(int occupiedPlaces) {
-		this.occupiedPlaces = occupiedPlaces;
+	public void setOccupiedPlaces(int placeOccupied) throws IllegalPlacesOccupiedException {
+		if (placeOccupied > 0) {
+			this.placeOccupied = placeOccupied;
+		} else {
+			throw new IllegalPlacesOccupiedException(MESSAGE_OCCUPIED_PLACES_NEGATIVE);
+		}
+
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + occupiedPlaces;
+		result = prime * result + placeOccupied;
 		result = prime * result + ((typeWaggon == null) ? 0 : typeWaggon.hashCode());
 		return result;
 	}
@@ -54,7 +61,7 @@ public class PassengerWaggon extends Waggon {
 		if (getClass() != obj.getClass())
 			return false;
 		PassengerWaggon other = (PassengerWaggon) obj;
-		if (occupiedPlaces != other.occupiedPlaces)
+		if (placeOccupied != other.placeOccupied)
 			return false;
 		if (typeWaggon != other.typeWaggon)
 			return false;
@@ -63,7 +70,7 @@ public class PassengerWaggon extends Waggon {
 
 	@Override
 	public String toString() {
-		return "PassengerWaggon [typeWaggon=" + typeWaggon + ", occupiedPlaces=" + occupiedPlaces + ", " + super.toString() + "]";
+		return "PassengerWaggon [typeWaggon=" + typeWaggon + ", placeOccupied=" + placeOccupied + ", " + super.toString() + "]";
 	}
 
 }

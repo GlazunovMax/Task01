@@ -1,17 +1,17 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
 public abstract class Waggon {
-	private double lehghtWaggon;
+	private double waggonLenght;
 
 	public Waggon() {
 	}
 
-	public Waggon(double lehghtWaggon) {
-		this.lehghtWaggon = lehghtWaggon;
+	public Waggon(double waggonLenght) {
+		this.waggonLenght = waggonLenght;
 	}
-
-	public double getLehghtWaggon() {
-		return lehghtWaggon;
+	
+	public double getWaggonLenght() {
+		return waggonLenght;
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public abstract class Waggon {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(lehghtWaggon);
+		temp = Double.doubleToLongBits(waggonLenght);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
@@ -33,14 +33,14 @@ public abstract class Waggon {
 		if (getClass() != obj.getClass())
 			return false;
 		Waggon other = (Waggon) obj;
-		if (Double.doubleToLongBits(lehghtWaggon) != Double.doubleToLongBits(other.lehghtWaggon))
+		if (Double.doubleToLongBits(waggonLenght) != Double.doubleToLongBits(other.waggonLenght))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "lehghtWaggon=" + lehghtWaggon;
+		return "lehghtWaggon=" + waggonLenght;
 	}
 
 }
