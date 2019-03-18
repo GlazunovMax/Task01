@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
+import by.epam.javatraining.glazunov.task01.model.container.TrainScheduleArray;
 import by.epam.javatraining.glazunov.task01.model.entity.*;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
 
@@ -15,8 +16,8 @@ public class FindTrainTest {
 
 	private Train train;
 	private Train train2;
-	private Train[] trains;
-	private FindTrain findTrain;
+	private TrainScheduleArray trains;
+	private Find findTrain;
 
 	@Before
 	public void createTrain() {
@@ -36,11 +37,11 @@ public class FindTrainTest {
 		train = new Train("Mинск-Брест", new Locomotive(), waggons);
 		train2 = new Train("Москва-Минск", new Locomotive(), waggons2);
 
-		findTrain = new FindTrainImpl();
+		findTrain = new FindTrainByParameter();
 
-		trains = new Train[2];
-		trains[0] = train;
-		trains[1] = train2;
+		trains = new TrainScheduleArray();//Train[2];
+		trains.addTrain(train); //trains[0] = train;
+		trains.addTrain(train2); //trains[1] = train2;
 	}
 
 	@Test
@@ -78,7 +79,7 @@ public class FindTrainTest {
 	@Test
 	public final void testFindTrainWithMinWeightLuggage() throws TechnicalException {
 		// actual
-		Train actual = findTrain.findTrainWithMinWeightLuggage(trains);
+		Train actual = findTrain.findTrainWithMinLuggageWeight(trains);
 		
 		// expected
 		Train expected = train;
@@ -89,7 +90,7 @@ public class FindTrainTest {
 	@Test
 	public final void testFindTrainWithMaxWeightLuggage() throws TechnicalException {
 		// actual
-		Train actual = findTrain.findTrainWithMaxWeightLuggage(trains);
+		Train actual = findTrain.findTrainWithMaxLuggageWeight(trains);
 		
 		// expected
 		Train expected = train2;
@@ -99,13 +100,13 @@ public class FindTrainTest {
 	
 	@Test(expected = TechnicalException.class)
 	public void testMaxWeightLuggageShouldThrowExceptionIfArgumentNull() throws TechnicalException {
-		findTrain.findTrainWithMaxWeightLuggage(null);
+		findTrain.findTrainWithMaxLuggageWeight(null);
 	}
 	
 	
 	@Test(expected = TechnicalException.class)
 	public void testMinWeightLuggageShouldThrowExceptionIfArgumentNull() throws TechnicalException {
-		findTrain.findTrainWithMinWeightLuggage(null);
+		findTrain.findTrainWithMinLuggageWeight(null);
 	}
 
 }

@@ -7,12 +7,13 @@ import by.epam.javatraining.glazunov.task01.model.entity.LuggageWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.exception.NullArgumentException;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
 
-public class CalculateTrainImpl implements CalculateTrain {
+public class CalculateTrainParameter implements Calculate {
 
 	@Override
-	public BigDecimal calculateLenghtTrain(Train train) throws TechnicalException {
+	public BigDecimal calculateTrainLenght(Train train) throws NullArgumentException {
 		CheckIfArgumentIsNull.exceptionTrainNull(train);
 
 		Locomotive locomotive = train.getLocomotive();
@@ -20,38 +21,38 @@ public class CalculateTrainImpl implements CalculateTrain {
 
 		double lenWag = 0;
 		BigDecimal trainLenght;
-		BigDecimal lenghtAllWaggons;
-		BigDecimal lehghtLocomotive = new BigDecimal(locomotive.getTypeLocomotive().getLenght());
+		BigDecimal allWaggonsLenght;
+		BigDecimal locomotiveLehght = new BigDecimal(locomotive.getLocomotiveType().getLenght());
 
 		for (Waggon waggon : waggons) {
-			lenWag += waggon.getLehghtWaggon();
+			lenWag += waggon.getWaggonLenght();
 		}
 
-		lenghtAllWaggons = new BigDecimal(lenWag);
+		allWaggonsLenght = new BigDecimal(lenWag);
 
-		trainLenght = lehghtLocomotive.add(lenghtAllWaggons);
+		trainLenght = locomotiveLehght.add(allWaggonsLenght);
 
 		return trainLenght.setScale(3, BigDecimal.ROUND_HALF_DOWN);
 	}
 
 	@Override
-	public BigDecimal calculateWeightOccupiedLuggage(Train train) throws TechnicalException {
+	public BigDecimal calculateLuggageWeightOccupied(Train train) throws NullArgumentException {
 		CheckIfArgumentIsNull.exceptionTrainNull(train);
 
-		BigDecimal weightLuggage = new BigDecimal(0);
+		BigDecimal luggageWeight = new BigDecimal(0);
 		Waggon[] waggons = train.getWaggons();
 
 		for (Waggon waggon : waggons) {
 			if (waggon instanceof LuggageWaggon) {
-				weightLuggage = weightLuggage.add(((LuggageWaggon) waggon).getOccupiedLuggage());
+				luggageWeight = luggageWeight.add(((LuggageWaggon) waggon).getLuggageOccupied());
 			}
 		}
 
-		return weightLuggage.setScale(3, BigDecimal.ROUND_HALF_DOWN);
+		return luggageWeight.setScale(3, BigDecimal.ROUND_HALF_DOWN);
 	}
 
 	@Override
-	public int calculateOccupiedPassengerSeats(Train train) throws TechnicalException {
+	public int calculatePassengerSeatsOccupied(Train train) throws NullArgumentException {
 		CheckIfArgumentIsNull.exceptionTrainNull(train);
 
 		int countOccuoiedSeats = 0;
@@ -59,7 +60,7 @@ public class CalculateTrainImpl implements CalculateTrain {
 
 		for (Waggon waggon : waggons) {
 			if (waggon instanceof PassengerWaggon) {
-				countOccuoiedSeats += ((PassengerWaggon) waggon).getOccupiedPlaces();
+				countOccuoiedSeats += ((PassengerWaggon) waggon).getPlaceOccupied();
 			}
 		}
 
