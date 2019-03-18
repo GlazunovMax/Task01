@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import by.epam.javatraining.glazunov.task01.model.container.TrainSchedule;
+import by.epam.javatraining.glazunov.task01.model.container.TrainScheduleArray;
 import by.epam.javatraining.glazunov.task01.model.entity.*;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
 
@@ -18,7 +19,7 @@ public class SortTrainTest {
 	private Train train2;
 	private Train train3;
 	private TrainSchedule schedule;
-	private SortTrain sortTrain;
+	private Sort sortTrain;
 
 	@Before
 	public void createScheduleTrain() {
@@ -47,9 +48,9 @@ public class SortTrainTest {
 		train2 = new Train("Москва-Минск", new Locomotive(), waggons2);
 		train3 = new Train("Витебск-Гомель", new Locomotive(), waggons3);
 
-		sortTrain = new SortTrainImpl();
+		sortTrain = new SortTrainByParameter();
 
-		schedule = new TrainSchedule();
+		schedule = new TrainScheduleArray();
 		schedule.addTrain(train);
 		schedule.addTrain(train2);
 		schedule.addTrain(train3);
@@ -62,7 +63,7 @@ public class SortTrainTest {
 		TrainSchedule actual = sortTrain.sortByTotalPassengerSeats(schedule);
 
 		// expected
-		TrainSchedule expected = new TrainSchedule();
+		TrainSchedule expected = new TrainScheduleArray();
 		expected.addTrain(train3);
 		expected.addTrain(train);
 		expected.addTrain(train2);
@@ -77,7 +78,7 @@ public class SortTrainTest {
 		TrainSchedule actual = sortTrain.sortByTotalLuggageWeight(schedule);
 
 		// expected
-		TrainSchedule expected = new TrainSchedule();
+		TrainSchedule expected = new TrainScheduleArray();
 		expected.addTrain(train3);
 		expected.addTrain(train2);
 		expected.addTrain(train);

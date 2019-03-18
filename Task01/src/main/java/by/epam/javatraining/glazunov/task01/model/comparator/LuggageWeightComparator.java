@@ -7,14 +7,6 @@ public class LuggageWeightComparator implements Comparator<Train> {
 
 	@Override
 	public int compare(Train train1, Train train2) {
-		/*if (train1.getTotalWeightLuggage().intValue() < train2.getTotalWeightLuggage().intValue()) {
-			return 1;
-		} else if (train1.getTotalWeightLuggage().intValue() > train2.getTotalWeightLuggage().intValue()) {
-			return -1;
-		} else {
-			return 0;
-		}*/
-		
 		return Integer.compare(train2.getTotalWeightLuggage().intValue(), train1.getTotalWeightLuggage().intValue());
 	}
 }

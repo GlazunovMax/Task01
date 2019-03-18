@@ -13,7 +13,7 @@ import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
 
 public class CalculateTrainTest {
 	private Train train;
-	private CalculateTrain calculateTrain;
+	private Calculate calculateTrain;
 
 	@Before
 	public void createTrain() {
@@ -25,13 +25,13 @@ public class CalculateTrainTest {
 
 		train = new Train("NameTrain", new Locomotive(), waggons);
 
-		calculateTrain = new CalculateTrainImpl();
+		calculateTrain = new CalculateTrainParameter();
 	}
 
 	@Test
 	public final void calculateLenghtTrain() throws TechnicalException {
 		// actual
-		BigDecimal actual = calculateTrain.calculateLenghtTrain(train);
+		BigDecimal actual = calculateTrain.calculateTrainLenght(train);
 
 		// expected
 		BigDecimal expected = new BigDecimal(95.52).setScale(3, BigDecimal.ROUND_HALF_DOWN);
@@ -41,13 +41,13 @@ public class CalculateTrainTest {
 	
 	@Test(expected = TechnicalException.class)
 	public void testLenghtTrainShouldThrowExceptionIfArgumentIsNull() throws TechnicalException {
-		calculateTrain.calculateLenghtTrain(null);
+		calculateTrain.calculateTrainLenght(null);
 	}
 
 	@Test
 	public final void testCalculateWeightOccupiedLuggage() throws TechnicalException {
 		// actual
-		BigDecimal actual = calculateTrain.calculateWeightOccupiedLuggage(train);
+		BigDecimal actual = calculateTrain.calculateLuggageWeightOccupied(train);
 
 		// expected
 		BigDecimal expected = new BigDecimal(2550).setScale(3, BigDecimal.ROUND_HALF_DOWN);
@@ -58,13 +58,13 @@ public class CalculateTrainTest {
 	
 	@Test(expected = TechnicalException.class)
 	public void testWeightLuggageShouldThrowExceptionIfArgumentIsNull() throws TechnicalException {
-		calculateTrain.calculateWeightOccupiedLuggage(null);
+		calculateTrain.calculateLuggageWeightOccupied(null);
 	}
 
 	@Test
 	public final void testCalculateOccupiedPassengerSeats() throws TechnicalException {
 		// actual
-		int actual = calculateTrain.calculateOccupiedPassengerSeats(train);
+		int actual = calculateTrain.calculatePassengerSeatsOccupied(train);
 
 		// expected
 		int expected = 80;
@@ -75,7 +75,7 @@ public class CalculateTrainTest {
 	
 	@Test(expected = TechnicalException.class)
 	public void testOccupiedSeatsShouldThrowExceptionIfArgumentIsNull() throws TechnicalException {
-		calculateTrain.calculateOccupiedPassengerSeats(null);
+		calculateTrain.calculatePassengerSeatsOccupied(null);
 	}
 
 }
