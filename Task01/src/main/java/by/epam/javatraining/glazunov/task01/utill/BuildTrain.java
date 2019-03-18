@@ -10,7 +10,7 @@ import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.LocomotiveType;
 import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
-import by.epam.javatraining.glazunov.task01.model.exception.IllegalMarkLocomotiveException;
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalLocomotiveMarkException;
 
 public class BuildTrain {
 	static Random random = new Random();
@@ -25,12 +25,12 @@ public class BuildTrain {
 		LocomotiveType[] type = LocomotiveType.values();
 
 		try {
-			locomotive.setMark(markLocomotive);
-		} catch (IllegalMarkLocomotiveException e) {
+			locomotive.setLocomotiveMark(markLocomotive);
+		} catch (IllegalLocomotiveMarkException e) {
 			System.err.println(e.getMessage());
 		}
 
-		locomotive.setTypeLocomotive(type[random.nextInt(type.length)]);
+		locomotive.setLocomotiveType(type[random.nextInt(type.length)]);
 
 		return locomotive;
 
