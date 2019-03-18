@@ -1,66 +1,111 @@
 package by.epam.javatraining.glazunov.task01.controller;
 
+import org.apache.log4j.Logger;
+
 import by.epam.javatraining.glazunov.task01.model.container.TrainSchedule;
+import by.epam.javatraining.glazunov.task01.model.container.TrainScheduleArray;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
+import by.epam.javatraining.glazunov.task01.model.exception.NullArgumentException;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
-import by.epam.javatraining.glazunov.task01.model.logic.FindTrain;
-import by.epam.javatraining.glazunov.task01.model.logic.LogicFactory;
-import by.epam.javatraining.glazunov.task01.model.logic.SortTrain;
-import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrain;
+import by.epam.javatraining.glazunov.task01.model.factory.LogicFactory;
+import by.epam.javatraining.glazunov.task01.model.logic.Find;
+import by.epam.javatraining.glazunov.task01.model.logic.Sort;
+import by.epam.javatraining.glazunov.task01.model.logic.Calculate;
 import by.epam.javatraining.glazunov.task01.view.ConsoleTrainInfo;
+import by.epam.javatraining.glazunov.task01.view.FileTrainInfo;
 import by.epam.javatraining.glazunov.task01.view.TrainInfo;
 
 /* 
  *  (Railway Transport, Passenger Train). 
  */
 public class Controller {
+	private static final Logger lOGGER = Logger.getRootLogger();
+	
 	TrainInfo trainInfo = new ConsoleTrainInfo();
+	//TrainInfo trainInfoFile = new FileTrainInfo(pathname);
 	LogicFactory factory = LogicFactory.getInstance();
 	
-	FindTrain findTrain = factory.getFindTrainImpl();
-	SortTrain sortTrain = factory.getSortTrainImpl();
-	CalculateTrain trainCalculate = factory.getTrainCalculateImpl();
+	Find findTrain = factory.getFindTrainImpl();
+	Sort sortTrain = factory.getSortTrainImpl();
+	Calculate trainCalculate = factory.getTrainCalculateImpl();
 	
 	
 	//finder
-	public void findTrainWithMinPassengerSeats(TrainSchedule schedule) throws TechnicalException {
-		trainInfo.print(findTrain.findTrainWithMinPassengerSeats(schedule.getArrayTrains()));
+	public void findTrainWithMinPassengerSeats(TrainSchedule schedule){
+		try {
+			trainInfo.print(findTrain.findTrainWithMinPassengerSeats(schedule));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
-	public void findTrainWithMaxPassengerSeats(TrainSchedule schedule) throws TechnicalException {
-		trainInfo.print(findTrain.findTrainWithMaxPassengerSeats(schedule.getArrayTrains()));
+	public void findTrainWithMaxPassengerSeats(TrainSchedule schedule) {
+		try {
+			trainInfo.print(findTrain.findTrainWithMaxPassengerSeats(schedule));
+		} catch (NullArgumentException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
+		
 	}
 	
-	public void findTrainWithMaxWeightLuggage(TrainSchedule schedule) throws TechnicalException {
-		trainInfo.print(findTrain.findTrainWithMaxWeightLuggage(schedule.getArrayTrains()));
+	public void findTrainWithMaxLuggageWeight(TrainSchedule schedule) {
+		try {
+			trainInfo.print(findTrain.findTrainWithMaxLuggageWeight(schedule));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
-	public void findTrainWithMinWeightLuggage(TrainSchedule schedule) throws TechnicalException {
-		trainInfo.print(findTrain.findTrainWithMinWeightLuggage(schedule.getArrayTrains()));
+	public void findTrainWithMinLuggageWeight(TrainSchedule schedule) {
+		try {
+			trainInfo.print(findTrain.findTrainWithMinLuggageWeight(schedule));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
 	
 	//sorter
-	public void sortByTotalLuggageWeight(TrainSchedule schedule) throws TechnicalException {
-		trainInfo.print(sortTrain.sortByTotalLuggageWeight(schedule));
+	public void sortByTotalLuggageWeight(TrainSchedule schedule) {
+		try {
+			trainInfo.print(sortTrain.sortByTotalLuggageWeight(schedule));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
-	public void sortByTotalPassengerSeats(TrainSchedule schedule) throws TechnicalException {
-		trainInfo.print(sortTrain.sortByTotalPassengerSeats(schedule));
+	public void sortByTotalPassengerSeats(TrainSchedule schedule) {
+		try {
+			trainInfo.print(sortTrain.sortByTotalPassengerSeats(schedule));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
 	
 	//calculater
-	public void calculateLenghtTrain (Train train) throws TechnicalException {
-		trainInfo.print(trainCalculate.calculateLenghtTrain(train));
+	public void calculateTrainLenght (Train train) {
+		try {
+			trainInfo.print(trainCalculate.calculateTrainLenght(train));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
-	public void calculateOccupiedPassengerSeats (Train train) throws TechnicalException {
-		trainInfo.print(trainCalculate.calculateOccupiedPassengerSeats(train));
+	public void calculatePassengerSeatsOccupied (Train train) {
+		try {
+			trainInfo.print(trainCalculate.calculatePassengerSeatsOccupied(train));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
-	public void calculateWeightOccupiedLuggage (Train train) throws TechnicalException {
-		trainInfo.print(trainCalculate.calculateWeightOccupiedLuggage(train));
+	public void calculateLuggageWeightOccupied (Train train) {
+		try {
+			trainInfo.print(trainCalculate.calculateLuggageWeightOccupied(train));
+		} catch (TechnicalException e) {
+			lOGGER.error(e.getMessage(), e);
+		}
 	}
 	
 	//printer
