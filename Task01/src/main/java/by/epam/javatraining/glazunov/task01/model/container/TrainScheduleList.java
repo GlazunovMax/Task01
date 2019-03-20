@@ -13,13 +13,18 @@ public class TrainScheduleList implements TrainSchedule {
 		this.trains = new ArrayList<>();
 	}
 
+	//copy
+	public TrainScheduleList(TrainScheduleList trainScheduleList) {
+		this.trains = trainScheduleList.trains;
+	}
+	
 	public TrainScheduleList(List<Train> listTrains) {
 		this.trains = listTrains;
 	}
 
 	@Override
-	public void addTrain(Train train) {
-		trains.add(train);
+	public boolean addTrain(Train train) {
+		return trains.add(train);
 	}
 
 	@Override
@@ -40,9 +45,19 @@ public class TrainScheduleList implements TrainSchedule {
 	}
 
 	@Override
-	public void set(int index, Train train) {
-		checkIndex(index);
+	public boolean set(int index, Train train) {
+	/*	checkIndex(index);
 		trains.set(index, train);
+		return false;*/
+		if(train != null) {
+			if (index >= 0 && index < trains.size()) {
+				trains.set(index, train);
+				return true;
+			}else {
+				throw new IllegalArgumentException();
+			}
+		}
+		return false;
 	}
 
 	@Override

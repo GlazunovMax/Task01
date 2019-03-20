@@ -12,6 +12,7 @@ import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.exception.IllegalIndexException;
 import by.epam.javatraining.glazunov.task01.model.logic.FindTrainByParameter;
 
 public class TrainScheduleTest {
@@ -49,30 +50,42 @@ public class TrainScheduleTest {
 		train = new Train("Mинск-Брест", new Locomotive(), waggons);
 		train2 = new Train("Москва-Минск", new Locomotive(), waggons2);
 		train3 = new Train("Витебск-Гомель", new Locomotive(), waggons3);
-
-		/*schedule.addTrain(train);
-		schedule.addTrain(train2);
-		schedule.addTrain(train3);*/
 		
 	}
 
 	@Test
 	public final void testAddTrain() {
-		
+		Assert.assertTrue(schedule.addTrain(train2));
 	}
+	
+	@Test
+	public final void testAddNullTrain() {
+		Assert.assertFalse(schedule.addTrain(null));
+	}
+	
 
 	@Test
-	public final void testGet() {
+	public void testGet() {
 		Train expected = train;
 		
 		schedule.addTrain(train);
-		Train actual = schedule.get(0);
+		Train actual = null;
+		try {
+			actual = schedule.get(0);
+		} catch (IllegalIndexException e) {
+			e.printStackTrace();
+		}
 		
 		Assert.assertEquals(expected, actual);
 	}
+	
+	@Test(expected = IllegalIndexException.class)
+	public void testShouldThrowExceptionIfGetIndexNegative() throws IllegalIndexException {
+		schedule.get(-5);
+	}
 
 	@Test
-	public final void testSize() {
+	public void testSize() {
 		schedule.addTrain(train);
 		schedule.addTrain(train2);
 		schedule.addTrain(train3);
@@ -80,18 +93,37 @@ public class TrainScheduleTest {
 	}
 
 	@Test
-	public final void testSet() {
-		Train expected = train2;
+	public void testSet() throws Exception {
+		//Train expected = train2;
+		//schedule.set(1, null);,,???
+		Assert.assertTrue(schedule.set(1, train));
+		//Train actual = schedule.get(1);
 		
-		schedule.set(1, train2);
-		Train actual = schedule.get(0);
-		
-		Assert.assertEquals(expected, actual);
+	///	Assert.assertEquals(expected, actual);
 	}
+	
+	@Test(expected = IllegalIndexException.class)
+	public void testShouldThrowExceptionIfSetIndexNegative() throws Exception {
+		schedule.set(-5, train);
+	}
+	
+	@Test
+	public void testShouldThrowExceptionIfSetTrainNull() throws Exception {
+		Assert.assertFalse(schedule.set(1, null));
+	}
+	
 
 	@Test
-	public final void testRemoveTrain() {
-		fail("Not yet implemented"); // TODO
+	public void testRemoveTrain() throws Exception {
+		schedule.addTrain(train);
+		schedule.addTrain(train2);
+		
+		Assert.assertTrue(schedule.removeTrain(1));
+	}
+	
+	@Test(expected = IllegalIndexException.class)
+	public void testShouldThrowExceptionIfRemoveIndexNegative() throws Exception {
+		schedule.removeTrain(-2);
 	}
 
 }
