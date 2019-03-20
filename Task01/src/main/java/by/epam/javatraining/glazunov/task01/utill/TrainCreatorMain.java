@@ -24,9 +24,9 @@ public class TrainCreatorMain {
 
 		//finder
 		controller.findTrainWithMinPassengerSeats(schedule);
-		/*controller.findTrainWithMaxPassengerSeats(schedule);
+		controller.findTrainWithMaxPassengerSeats(schedule);
 		controller.findTrainWithMaxLuggageWeight(schedule);
-		controller.findTrainWithMinLuggageWeight(schedule);*/
+		controller.findTrainWithMinLuggageWeight(schedule);
 				
 		//sorter
 		/*controller.sortByTotalLuggageWeight(schedule);
