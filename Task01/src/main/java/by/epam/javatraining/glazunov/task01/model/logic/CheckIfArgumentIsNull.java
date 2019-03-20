@@ -1,5 +1,8 @@
 package by.epam.javatraining.glazunov.task01.model.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import by.epam.javatraining.glazunov.task01.model.container.TrainSchedule;
 import by.epam.javatraining.glazunov.task01.model.container.TrainScheduleArray;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
@@ -20,5 +23,18 @@ public class CheckIfArgumentIsNull {
 		if (schedule == null || schedule.size() == 0) {
 			throw new NullArgumentException(MESSAGE_EXCEPTION_NULL);
 		}
+	}
+	
+	public static Train[] cheakArrayOnNull(Train[] trains) {
+		List<Train> removedNull = new ArrayList<>();
+
+		for (Train train : trains) {
+			if(train != null) {
+				removedNull.add(train);
+			}
+		}
+		
+		trains = removedNull.toArray(new Train[removedNull.size()]);
+		return trains;
 	}
 }

@@ -15,7 +15,7 @@ public class SortTrainByParameter implements Sort {
 	public TrainSchedule sortByTotalPassengerSeats(TrainSchedule schedule) throws NullArgumentException {
 		CheckIfArgumentIsNull.exceptionTrainSceduleNull(schedule);
 
-		Train[] trains = schedule.getTrains();
+		Train[] trains = CheckIfArgumentIsNull.cheakArrayOnNull(schedule.getTrains());//null//schedule.getTrains();
 
 		Arrays.sort(trains, new PassengerNumberComparator());
 
@@ -26,7 +26,7 @@ public class SortTrainByParameter implements Sort {
 	public TrainSchedule sortByTotalLuggageWeight(TrainSchedule schedule) throws NullArgumentException {
 		CheckIfArgumentIsNull.exceptionTrainSceduleNull(schedule);
 
-		Train[] trains = schedule.getTrains();
+		Train[] trains = CheckIfArgumentIsNull.cheakArrayOnNull(schedule.getTrains());//schedule.getTrains();
 
 		Arrays.sort(trains, new LuggageWeightComparator());
 
