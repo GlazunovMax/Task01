@@ -1,35 +1,38 @@
 package by.epam.javatraining.glazunov.task01.model.factory;
 
-import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrain;
-import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrainImpl;
-import by.epam.javatraining.glazunov.task01.model.logic.FindTrain;
-import by.epam.javatraining.glazunov.task01.model.logic.FindTrainImpl;
-import by.epam.javatraining.glazunov.task01.model.logic.SortTrain;
-import by.epam.javatraining.glazunov.task01.model.logic.SortTrainImpl;
+import by.epam.javatraining.glazunov.task01.model.logic.Calculate;
+import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrainParameter;
+import by.epam.javatraining.glazunov.task01.model.logic.Find;
+import by.epam.javatraining.glazunov.task01.model.logic.FindTrainByParameter;
+import by.epam.javatraining.glazunov.task01.model.logic.Sort;
+import by.epam.javatraining.glazunov.task01.model.logic.SortTrainByParameter;
 
 public class LogicFactory {
-	private static LogicFactory instance = new LogicFactory();;
+	private static LogicFactory instance;
 	
-	private final CalculateTrain trainCalculate = new CalculateTrainImpl();
-	private final SortTrain sortTrain = new SortTrainImpl();
-	private final FindTrain findTrain = new FindTrainImpl();
+	private final Calculate trainCalculate = new CalculateTrainParameter();
+	private final Sort sortTrain = new SortTrainByParameter();
+	private final Find findTrain = new FindTrainByParameter();
 
 	private LogicFactory() {
 	}
 
 	public static LogicFactory getInstance() {
+		if(instance == null) {
+			instance = new LogicFactory();
+		}
 		return instance;
 	}
 
-	public SortTrain getSortTrainImpl() {
+	public Sort getSortTrainImpl() {
 		return sortTrain;
 	}
 
-	public CalculateTrain getTrainCalculateImpl() {
+	public Calculate getTrainCalculateImpl() {
 		return trainCalculate;
 	}
 
-	public FindTrain getFindTrainImpl() {
+	public Find getFindTrainImpl() {
 		return findTrain;
 	}
 
