@@ -6,7 +6,7 @@ public class MainProjectException extends Exception{
 		super();
 	}
 	
-	public MainProjectException(String message, TechnicalException e) {
+	public MainProjectException(String message, Exception e) {
 		super(message, e);
 	}
 
@@ -14,7 +14,7 @@ public class MainProjectException extends Exception{
 		super(message);
 	}
 
-	public MainProjectException(TechnicalException e) {
+	public MainProjectException(Exception e) {
 		super(e);
 	}
 	
