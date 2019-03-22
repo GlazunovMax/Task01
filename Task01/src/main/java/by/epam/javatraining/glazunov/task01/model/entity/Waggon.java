@@ -1,6 +1,6 @@
 package by.epam.javatraining.glazunov.task01.model.entity;
 
-public abstract class Waggon {
+public class Waggon {
 	private double waggonLenght;
 
 	public Waggon() {
