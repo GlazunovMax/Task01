@@ -95,7 +95,7 @@ public class TrainScheduleTest {
 	@Test
 	public void testSet() throws Exception {
 		//Train expected = train2;
-		//schedule.set(1, null);,,???
+		//schedule.set(1, null);
 		Assert.assertTrue(schedule.set(1, train));
 		//Train actual = schedule.get(1);
 		
