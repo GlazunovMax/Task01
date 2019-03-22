@@ -3,7 +3,6 @@ package by.epam.javatraining.glazunov.task01.controller;
 import org.apache.log4j.Logger;
 
 import by.epam.javatraining.glazunov.task01.model.container.TrainSchedule;
-import by.epam.javatraining.glazunov.task01.model.container.TrainScheduleArray;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.exception.NullArgumentException;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
@@ -12,7 +11,6 @@ import by.epam.javatraining.glazunov.task01.model.logic.Find;
 import by.epam.javatraining.glazunov.task01.model.logic.Sort;
 import by.epam.javatraining.glazunov.task01.model.logic.Calculate;
 import by.epam.javatraining.glazunov.task01.view.ConsoleTrainInfo;
-import by.epam.javatraining.glazunov.task01.view.FileTrainInfo;
 import by.epam.javatraining.glazunov.task01.view.TrainInfo;
 
 /* 
@@ -22,7 +20,6 @@ public class Controller {
 	private static final Logger lOGGER = Logger.getRootLogger();
 	
 	TrainInfo trainInfo = new ConsoleTrainInfo();
-	//TrainInfo trainInfoFile = new FileTrainInfo(pathname);
 	LogicFactory factory = LogicFactory.getInstance();
 	
 	Find findTrain = factory.getFindTrainImpl();
@@ -51,7 +48,7 @@ public class Controller {
 	public void findTrainWithMaxLuggageWeight(TrainSchedule schedule) {
 		try {
 			trainInfo.print(findTrain.findTrainWithMaxLuggageWeight(schedule));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -59,7 +56,7 @@ public class Controller {
 	public void findTrainWithMinLuggageWeight(TrainSchedule schedule) {
 		try {
 			trainInfo.print(findTrain.findTrainWithMinLuggageWeight(schedule));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -69,7 +66,7 @@ public class Controller {
 	public void sortByTotalLuggageWeight(TrainSchedule schedule) {
 		try {
 			trainInfo.print(sortTrain.sortByTotalLuggageWeight(schedule));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -77,7 +74,7 @@ public class Controller {
 	public void sortByTotalPassengerSeats(TrainSchedule schedule) {
 		try {
 			trainInfo.print(sortTrain.sortByTotalPassengerSeats(schedule));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -87,7 +84,7 @@ public class Controller {
 	public void calculateTrainLenght (Train train) {
 		try {
 			trainInfo.print(trainCalculate.calculateTrainLenght(train));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -95,7 +92,7 @@ public class Controller {
 	public void calculatePassengerSeatsOccupied (Train train) {
 		try {
 			trainInfo.print(trainCalculate.calculatePassengerSeatsOccupied(train));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -103,7 +100,7 @@ public class Controller {
 	public void calculateLuggageWeightOccupied (Train train) {
 		try {
 			trainInfo.print(trainCalculate.calculateLuggageWeightOccupied(train));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}
