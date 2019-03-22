@@ -13,7 +13,6 @@ import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
 import by.epam.javatraining.glazunov.task01.model.exception.IllegalIndexException;
-import by.epam.javatraining.glazunov.task01.model.logic.FindTrainByParameter;
 
 public class TrainScheduleTest {
 
@@ -94,12 +93,15 @@ public class TrainScheduleTest {
 
 	@Test
 	public void testSet() throws Exception {
-		//Train expected = train2;
-		//schedule.set(1, null);
-		Assert.assertTrue(schedule.set(1, train));
-		//Train actual = schedule.get(1);
+		Train expected = train2;
 		
-	///	Assert.assertEquals(expected, actual);
+		schedule.addTrain(train);
+		schedule.addTrain(train3);
+		schedule.set(1, train2);
+	
+		Train actual = schedule.get(1);
+		
+		Assert.assertEquals(expected, actual);
 	}
 	
 	@Test(expected = IllegalIndexException.class)
