@@ -57,7 +57,7 @@ public class Parser {
 
 					waggons[i] = new PassengerWaggon(typeWaggon, placeOccupied);
 
-					indexWaggonType = indexPlaceOccupied + INDEX_FOR_GET_NEXT_WAGGON_TYPE;
+					indexWaggonType += INDEX_FOR_GET_NEXT_WAGGON_TYPE;
 					indexPlaceOccupied += INDEX_FOR_GET_NEXT_PLACE_OCCUPIED;
 				}
 
