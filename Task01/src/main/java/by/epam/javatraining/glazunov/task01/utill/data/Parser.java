@@ -37,6 +37,7 @@ public class Parser {
 
 				String[] trainData = string.split(DELIMETR);
 
+				//Create Locomotive
 				String nameTrain = trainData[POSITION_NAME_TRAIN];
 
 				String locomotiveMark = trainData[POSITION_LOCOMOTIVE_MARK];
@@ -44,10 +45,16 @@ public class Parser {
 
 				Locomotive locomotive = new Locomotive(locomotiveMark, type);
 
+				
+				//Find count passenger and luggage waggons
 				int countPassengerWaggons = Integer.parseInt(trainData[POSITION_COUNT_PASSENGER_WAGGON]);
 				int countLuggageWaggons = Integer.parseInt(trainData[POSITION_COUNT_LUGGAGE_WAGGON]);
+				
+				//Create array all waggons
 				Waggon[] waggons = new Waggon[countPassengerWaggons + countLuggageWaggons];
 
+				
+				//add passenger waggons in array
 				for (int i = 0; i < countPassengerWaggons; i++) {
 					int indexWaggonType = POSITION_PASSENGER_WAGGON_TYPE;
 					int indexPlaceOccupied = POSITION_PLACE_OCCUPIED;
@@ -60,7 +67,9 @@ public class Parser {
 					indexWaggonType += INDEX_FOR_GET_NEXT_WAGGON_TYPE;
 					indexPlaceOccupied += INDEX_FOR_GET_NEXT_PLACE_OCCUPIED;
 				}
-
+				
+				
+				//add luggage waggons in array
 				for (int i = countPassengerWaggons; i < waggons.length; i++) {
 					int indexLuggageWeight = countPassengerWaggons * INDEX_FOR_GET_LUGGAGE_WAGGON
 							+ POSITION_PASSENGER_WAGGON_TYPE;
@@ -75,7 +84,9 @@ public class Parser {
 					indexLuggageWeight += INDEX_FOR_GET_LUGGAGE_WAGGON;
 					indexLuggageOccupied += INDEX_FOR_GET_LUGGAGE_WAGGON;
 				}
-
+				
+				
+				//Create Train
 				Train train = new Train(nameTrain, locomotive, waggons);
 
 				listTrain.add(train);
