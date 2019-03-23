@@ -31,7 +31,7 @@ public class Controller {
 	public void findTrainWithMinPassengerSeats(TrainSchedule schedule){
 		try {
 			trainInfo.print(findTrain.findTrainWithMinPassengerSeats(schedule));
-		} catch (TechnicalException e) {
+		} catch (NullArgumentException e) {
 			lOGGER.error(e.getMessage(), e);
 		}
 	}

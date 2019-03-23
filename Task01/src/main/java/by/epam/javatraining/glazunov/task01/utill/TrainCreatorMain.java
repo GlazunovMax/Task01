@@ -29,14 +29,14 @@ public class TrainCreatorMain {
 		controller.findTrainWithMinLuggageWeight(schedule);
 				
 		//sorter
-		/*controller.sortByTotalLuggageWeight(schedule);
+		controller.sortByTotalLuggageWeight(schedule);
 		controller.sortByTotalPassengerSeats(schedule);
-*/
+
 		//calculate
-		/*controller.calculateTrainLenght(train);
+		controller.calculateTrainLenght(train);
 		controller.calculatePassengerSeatsOccupied(train);
 		controller.calculateLuggageWeightOccupied(train);
-*/
+
 	}
 
 }
