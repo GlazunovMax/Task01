@@ -10,6 +10,7 @@ public class PassengerWaggon extends Waggon {
 	private int placeOccupied;
 	
 	public PassengerWaggon() {
+		typeWaggon = PassengerWaggonType.THIRD_CLASS;
 	}
 	
 	public PassengerWaggon(PassengerWaggonType typeWaggon, int placeOccupied) {

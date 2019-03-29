@@ -1,4 +1,4 @@
-package by.epam.javatraining.glazunov.task01.model.factory;
+package by.epam.javatraining.glazunov.task01.utill;
 
 import by.epam.javatraining.glazunov.task01.model.logic.Calculate;
 import by.epam.javatraining.glazunov.task01.model.logic.CalculateTrainParameter;
@@ -7,19 +7,19 @@ import by.epam.javatraining.glazunov.task01.model.logic.FindTrainByParameter;
 import by.epam.javatraining.glazunov.task01.model.logic.Sort;
 import by.epam.javatraining.glazunov.task01.model.logic.SortTrainByParameter;
 
-public class LogicFactory {
-	private static LogicFactory instance;
+public class Factory {
+	private static Factory instance;
 	
 	private final Calculate trainCalculate = new CalculateTrainParameter();
 	private final Sort sortTrain = new SortTrainByParameter();
 	private final Find findTrain = new FindTrainByParameter();
 
-	private LogicFactory() {
+	private Factory() {
 	}
 
-	public static LogicFactory getInstance() {
+	public static Factory getInstance() {
 		if(instance == null) {
-			instance = new LogicFactory();
+			instance = new Factory();
 		}
 		return instance;
 	}

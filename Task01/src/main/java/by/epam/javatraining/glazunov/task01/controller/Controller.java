@@ -6,9 +6,9 @@ import by.epam.javatraining.glazunov.task01.model.container.TrainSchedule;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.exception.NullArgumentException;
 import by.epam.javatraining.glazunov.task01.model.exception.TechnicalException;
-import by.epam.javatraining.glazunov.task01.model.factory.LogicFactory;
 import by.epam.javatraining.glazunov.task01.model.logic.Find;
 import by.epam.javatraining.glazunov.task01.model.logic.Sort;
+import by.epam.javatraining.glazunov.task01.utill.Factory;
 import by.epam.javatraining.glazunov.task01.model.logic.Calculate;
 import by.epam.javatraining.glazunov.task01.view.ConsoleTrainInfo;
 import by.epam.javatraining.glazunov.task01.view.TrainInfo;
@@ -20,7 +20,7 @@ public class Controller {
 	private static final Logger lOGGER = Logger.getRootLogger();
 	
 	TrainInfo trainInfo = new ConsoleTrainInfo();
-	LogicFactory factory = LogicFactory.getInstance();
+	Factory factory = Factory.getInstance();
 	
 	Find findTrain = factory.getFindTrainImpl();
 	Sort sortTrain = factory.getSortTrainImpl();
