@@ -15,8 +15,6 @@ import by.epam.javatraining.glazunov.task01.model.exception.FileReadException;
 
 public class Reader {
 	private final static Logger LOGGER = Logger.getRootLogger();
-	private static final String MESSAGE_ERROR = "Error reading file";
-	private static final Object MESSAGE_FILE_NOT_FOUND = "Initialization file is not exists";
 
 	public static List<String> readFile(String fileName) throws FileReadException {
 		File file = new File(fileName);
@@ -32,9 +30,9 @@ public class Reader {
 			}
 			
 		} catch (FileNotFoundException e) {
-			LOGGER.error(MESSAGE_FILE_NOT_FOUND);
+			LOGGER.error(SomeConstant.MESSAGE_FILE_NOT_FOUND);
 		} catch (IOException e1) {
-			throw new FileReadException(MESSAGE_ERROR, e1);
+			throw new FileReadException(SomeConstant.MESSAGE_ERROR, e1);
 		}
 		return list;
 	}

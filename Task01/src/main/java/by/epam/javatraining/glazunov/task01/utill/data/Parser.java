@@ -11,88 +11,85 @@ import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggon;
 import by.epam.javatraining.glazunov.task01.model.entity.PassengerWaggonType;
 import by.epam.javatraining.glazunov.task01.model.entity.Train;
 import by.epam.javatraining.glazunov.task01.model.entity.Waggon;
+import by.epam.javatraining.glazunov.task01.model.exception.FileReadException;
+import by.epam.javatraining.glazunov.task01.model.exception.NoValidDataException;
 import by.epam.javatraining.glazunov.task01.model.exception.NullArgumentException;
 
 public class Parser {
 
-	private static final String DELIMETR = ",";
-	private static final int POSITION_NAME_TRAIN = 0;
-	private static final int POSITION_LOCOMOTIVE_MARK = 1;
-	private static final int POSITION_LOCOMOTIVE_TYPE = 2;
-	private static final int POSITION_COUNT_PASSENGER_WAGGON = 3;
-	private static final int POSITION_COUNT_LUGGAGE_WAGGON = 4;
-	private static final int POSITION_PASSENGER_WAGGON_TYPE = 5;
-	private static final int POSITION_PLACE_OCCUPIED = 6;
-	private static final int INDEX_FOR_GET_NEXT_WAGGON_TYPE = 2;
-	private static final int INDEX_FOR_GET_NEXT_PLACE_OCCUPIED = 2;
-	private static final int INDEX_FOR_GET_LUGGAGE_WAGGON = 2;
-	private static final String MESSAGE_EXCEPTION_NULL = "Null link has been passed to the method arguments!";
-
-	public static List<Train> parseTrainFromFile(List<String> list) throws NullArgumentException {
+	public static List<Train> parseTrainFromFile() throws NullArgumentException {
 		List<Train> listTrain = new ArrayList<>();
 
-		if (list != null) {
+		List<String> dataList;
+		List<String> validData = null;
+		try {
+			dataList = Reader.readFile("src/main/java/train.txt");
+			validData = Validator.getValidData(dataList);
+		} catch (FileReadException e) {
+			e.getMessage();
+		} catch (NoValidDataException e) {
+			e.getMessage();
+		}
 
-			for (String string : list) {
+		if (validData != null) {
 
-				String[] trainData = string.split(DELIMETR);
+			for (String string : validData) {
 
-				//Create Locomotive
-				String nameTrain = trainData[POSITION_NAME_TRAIN];
+				String[] trainData = string.split(SomeConstant.DELIMETR);
 
-				String locomotiveMark = trainData[POSITION_LOCOMOTIVE_MARK];
-				LocomotiveType type = LocomotiveType.valueOf(trainData[POSITION_LOCOMOTIVE_TYPE].toUpperCase());
+				// Create Locomotive
+				String nameTrain = trainData[SomeConstant.POSITION_NAME_TRAIN];
+
+				String locomotiveMark = trainData[SomeConstant.POSITION_LOCOMOTIVE_MARK];
+				LocomotiveType type = LocomotiveType
+						.valueOf(trainData[SomeConstant.POSITION_LOCOMOTIVE_TYPE].toUpperCase());
 
 				Locomotive locomotive = new Locomotive(locomotiveMark, type);
 
-				
-				//Find count passenger and luggage waggons
-				int countPassengerWaggons = Integer.parseInt(trainData[POSITION_COUNT_PASSENGER_WAGGON]);
-				int countLuggageWaggons = Integer.parseInt(trainData[POSITION_COUNT_LUGGAGE_WAGGON]);
-				
-				//Create array all waggons
+				// Find count passenger and luggage waggons
+				int countPassengerWaggons = Integer.parseInt(trainData[SomeConstant.POSITION_COUNT_PASSENGER_WAGGON]);
+				int countLuggageWaggons = Integer.parseInt(trainData[SomeConstant.POSITION_COUNT_LUGGAGE_WAGGON]);
+
+				// Create array all waggons
 				Waggon[] waggons = new Waggon[countPassengerWaggons + countLuggageWaggons];
 
-				
-				//add passenger waggons in array
+				// add passenger waggons in array
 				for (int i = 0; i < countPassengerWaggons; i++) {
-					int indexWaggonType = POSITION_PASSENGER_WAGGON_TYPE;
-					int indexPlaceOccupied = POSITION_PLACE_OCCUPIED;
+					int indexWaggonType = SomeConstant.POSITION_PASSENGER_WAGGON_TYPE;
+					int indexPlaceOccupied = SomeConstant.POSITION_PLACE_OCCUPIED;
 
 					PassengerWaggonType typeWaggon = PassengerWaggonType.valueOf(trainData[indexWaggonType]);
 					int placeOccupied = Integer.parseInt(trainData[indexPlaceOccupied]);
 
 					waggons[i] = new PassengerWaggon(typeWaggon, placeOccupied);
 
-					indexWaggonType += INDEX_FOR_GET_NEXT_WAGGON_TYPE;
-					indexPlaceOccupied += INDEX_FOR_GET_NEXT_PLACE_OCCUPIED;
+					indexWaggonType += SomeConstant.INDEX_FOR_GET_NEXT_WAGGON_TYPE;
+					indexPlaceOccupied += SomeConstant.INDEX_FOR_GET_NEXT_PLACE_OCCUPIED;
 				}
-				
-				
-				//add luggage waggons in array
+
+				// add luggage waggons in array
 				for (int i = countPassengerWaggons; i < waggons.length; i++) {
-					int indexLuggageWeight = countPassengerWaggons * INDEX_FOR_GET_LUGGAGE_WAGGON
-							+ POSITION_PASSENGER_WAGGON_TYPE;
-					int indexLuggageOccupied = countLuggageWaggons * INDEX_FOR_GET_LUGGAGE_WAGGON
-							+ POSITION_PLACE_OCCUPIED;
+					int indexLuggageWeight = countPassengerWaggons * SomeConstant.INDEX_FOR_GET_LUGGAGE_WAGGON
+							+ SomeConstant.POSITION_PASSENGER_WAGGON_TYPE;
+					int indexLuggageOccupied = countLuggageWaggons * SomeConstant.INDEX_FOR_GET_LUGGAGE_WAGGON
+							+ SomeConstant.POSITION_PLACE_OCCUPIED;
 
 					double luggageWeight = Double.parseDouble(trainData[indexLuggageWeight]);
 					BigDecimal luggageOccupied = new BigDecimal(trainData[indexLuggageOccupied]);
 
 					waggons[i] = new LuggageWaggon(luggageWeight, luggageOccupied);
 
-					indexLuggageWeight += INDEX_FOR_GET_LUGGAGE_WAGGON;
-					indexLuggageOccupied += INDEX_FOR_GET_LUGGAGE_WAGGON;
+					indexLuggageWeight += SomeConstant.INDEX_FOR_GET_LUGGAGE_WAGGON;
+					indexLuggageOccupied += SomeConstant.INDEX_FOR_GET_LUGGAGE_WAGGON;
 				}
-				
-				
-				//Create Train
+
+				// Create Train
 				Train train = new Train(nameTrain, locomotive, waggons);
 
 				listTrain.add(train);
 			}
 		} else {
-			throw new NullArgumentException(MESSAGE_EXCEPTION_NULL);
+			throw new NullArgumentException(SomeConstant.MESSAGE_EXCEPTION_NULL);
 		}
 		return listTrain;
 	}
